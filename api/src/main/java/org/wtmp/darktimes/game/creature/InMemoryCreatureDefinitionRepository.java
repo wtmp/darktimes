@@ -1,0 +1,63 @@
+package org.wtmp.darktimes.game.creature;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import org.springframework.stereotype.Component;
+import org.wtmp.darktimes.repository.IconRepository;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Component
+public class InMemoryCreatureDefinitionRepository implements CreatureDefinitionRepository {
+    @Inject
+    IconRepository iconRepository;
+
+    private Map<String, CreatureDefinition> definitions = new HashMap<>();
+
+    @Override
+    public void addDefinition(CreatureDefinition creatureDefinition) {
+        definitions.put(creatureDefinition.getShortname(), creatureDefinition);
+    }
+
+    @Override
+    public CreatureDefinition getDefinition(String name) {
+        return definitions.get(name);
+    }
+
+    @PostConstruct
+    private void onPostConstruct() {
+        CreatureDefinition definition = CreatureDefinition.builder()
+                .shortname("rat")
+                .description("серая крыса")
+                .health(2)
+                .attack(3)
+                .defence(0)
+                .icon(iconRepository.findByCode(86))
+                .build();
+
+        definitions.put(definition.getShortname(), definition);
+
+        definition = CreatureDefinition.builder()
+                .shortname("bat")
+                .description("летучая мышь")
+                .health(2)
+                .attack(3)
+                .defence(0)
+                .icon(iconRepository.findByCode(88))
+                .build();
+
+        definitions.put(definition.getShortname(), definition);
+
+        definition = CreatureDefinition.builder()
+                .shortname("man")
+                .description("человек")
+                .health(10)
+                .attack(2)
+                .defence(10)
+                .icon(iconRepository.findByCode(67))
+                .build();
+
+        definitions.put(definition.getShortname(), definition);
+    }
+}

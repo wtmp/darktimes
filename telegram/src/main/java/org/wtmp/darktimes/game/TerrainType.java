@@ -1,0 +1,14 @@
+package org.wtmp.darktimes.game;
+
+public enum TerrainType {
+    TERRAIN_UNDEFINED,
+    TERRAIN_SEA,
+    TERRAIN_GRASSLAND,
+    TERRAIN_FOREST,
+    TERRAIN_JUNGLE,
+    TERRAIN_DESERT,
+    TERRAIN_GREEN_MOUNTAIN,
+    TERRAIN_BARREN_MOUNTAIN,
+    TERRAIN_FROZEN,
+    TERRAIN_RIVER
+}
