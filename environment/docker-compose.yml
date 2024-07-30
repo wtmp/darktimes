@@ -1,0 +1,13 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./etc/nginx/conf.d:/etc/nginx/conf.d/
+    ports:
+      - "8080:80"
+    environment:
+      - NGINX_HOST=wtmp.org
+      - NGINX_PORT=80
