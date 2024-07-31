@@ -2,10 +2,17 @@
 version: '3.1'
 
 services:
-  web:
+  proxy:
     image: nginx
     volumes:
       - ./etc/nginx/conf.d:/etc/nginx/conf.d/
       - ./etc/ssl/private:/etc/ssl/private/
     ports:
       - "80:443"
+
+  client:
+    image: httpd
+    volumes:
+      - ./usr/local/apache2/htdocs:/usr/local/apache2/htdocs/
+    ports:
+      - "3000:80"
