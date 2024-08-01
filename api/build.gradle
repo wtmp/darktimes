@@ -29,8 +29,9 @@ repositories {
 }
 
 task copyConfig(type: Copy) {
-    from 'assets'
+    from '../assets'
     into 'build/libs/assets'
+    into 'build/install/api/bin/assets'
 }
 
 build {

@@ -4,15 +4,36 @@ version: '3.1'
 services:
   proxy:
     image: nginx
+    restart: always
     volumes:
       - ./etc/nginx/conf.d:/etc/nginx/conf.d/
       - ./etc/ssl/private:/etc/ssl/private/
     ports:
       - "443:443"
 
-  client:
-    image: httpd
+#  client:
+#    image: httpd
+#    volumes:
+#      - ./usr/local/apache2/htdocs:/usr/local/apache2/htdocs/
+#    ports:
+#      - "3000:80"
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    restart: always
     volumes:
-      - ./usr/local/apache2/htdocs:/usr/local/apache2/htdocs/
+      - ../api/build/install/api:/opt/api
     ports:
-      - "3000:80"
+      - "8080:8080"
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile-client
+    restart: always
+    volumes:
+      - ../client:/opt/client
+    ports:
+      - "3000:3000"
