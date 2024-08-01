@@ -17,6 +17,8 @@ services:
     restart: always
     volumes:
       - ./api/build/install/api:/opt/api
+      - ./assets:/opt/api/assets
+    entrypoint: ./bin/api
     ports:
       - "8080:8080"
 
@@ -24,5 +26,9 @@ services:
     build:
       context: client
     restart: always
+    volumes:
+      - ./client/public:/opt/client/public
+      - ./client/src:/opt/client/src
+    entrypoint: npm start
     ports:
       - "3000:3000"
