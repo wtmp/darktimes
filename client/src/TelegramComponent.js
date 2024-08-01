@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useTelegramWebApp } from 'telegram-web-app';
+import { useTelegramWebApp } from 'telegram-webapps';
 
 const TelegramComponent = () => {
     const { tg } = useTelegramWebApp();
