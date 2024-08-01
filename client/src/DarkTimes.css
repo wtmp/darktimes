@@ -1,19 +1,19 @@
-.darkTimes {
+.DarkTimes {
   text-align: center;
 }
 
-.darkTimes-logo {
+.DarkTimes-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .darkTimes-logo {
-    animation: darkTimes-logo-spin infinite 20s linear;
+  .DarkTimes-logo {
+    animation: DarkTimes-logo-spin infinite 20s linear;
   }
 }
 
-.darkTimes-header {
+.DarkTimes-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -24,11 +24,11 @@
   color: white;
 }
 
-.darkTimes-link {
+.DarkTimes-link {
   color: #61dafb;
 }
 
-@keyframes darkTimes-logo-spin {
+@keyframes DarkTimes-logo-spin {
   from {
     transform: rotate(0deg);
   }

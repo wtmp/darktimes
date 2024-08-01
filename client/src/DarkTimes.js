@@ -2,9 +2,9 @@ import React from 'react';
 
 import logo from './logo.svg';
 
-import './darkTimes.css';
+import './DarkTimes.css';
 
-class darkTimes extends React.Component {
+class DarkTimes extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -22,14 +22,14 @@ class darkTimes extends React.Component {
 
   render() {
     return (
-        <div className="darkTimes">
-          <header className="darkTimes-header">
-            <img src={logo} className="darkTimes-logo" alt="logo"/>
+        <div className="DarkTimes">
+          <header className="DarkTimes-header">
+            <img src={logo} className="DarkTimes-logo" alt="logo"/>
             <p>
-              Edit <code>src/darkTimes.js</code> and save to reload.
+              Edit <code>src/DarkTimes.js</code> and save to reload.
             </p>
             <a
-                className="darkTimes-link"
+                className="DarkTimes-link"
                 href="https://reactjs.org"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -45,4 +45,4 @@ class darkTimes extends React.Component {
   }
 }
 
-export default darkTimes;
+export default DarkTimes;

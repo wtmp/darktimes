@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import DarkTimes from './darkTimes';
+import DarkTimes from './DarkTimes';
 
 test('renders learn react link', () => {
   render(<DarkTimes />);
