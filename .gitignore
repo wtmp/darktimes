@@ -1,9 +1,2 @@
 /.idea
 /out
-/build
-/telegram/gradle/wrapper/gradle-wrapper.jar
-/api/gradle/wrapper/gradle-wrapper.jar
-/api/build/
-/api/.gradle/
-/telegram/.gradle/
-/telegram/build/
