@@ -1,22 +1,30 @@
 import React, { useEffect } from 'react';
-import { useTelegramWebApp } from 'telegram-webapps';
 
 const TelegramComponent = () => {
-    const { tg } = useTelegramWebApp();
-
     useEffect(() => {
-        tg.ready();
-    }, [tg]);
+        // Проверяем, что Telegram Web App объект доступен
+        if (window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+            tg.ready(); // Сообщаем Telegram, что приложение готово к использованию
+
+            console.log('Telegram WebApp Data:', tg.initDataUnsafe);
+        }
+    }, []);
 
     const onClose = () => {
-        tg.close();
+        if (window.Telegram.WebApp) {
+            window.Telegram.WebApp.close();
+        }
     };
 
     const onToggleTheme = () => {
-        if (tg.themeParams.mode === 'dark') {
-            tg.setThemeParams({ mode: 'light' });
-        } else {
-            tg.setThemeParams({ mode: 'dark' });
+        if (window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+            tg.MainButton.setParams({
+                text: 'Change Theme',
+                color: tg.themeParams.mode === 'dark' ? '#FFFFFF' : '#000000'
+            });
+            tg.themeParams.mode = tg.themeParams.mode === 'dark' ? 'light' : 'dark';
         }
     };
 
