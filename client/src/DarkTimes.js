@@ -15,9 +15,9 @@ class DarkTimes extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://mail.ru")
-        .then(response => response.json())
-        .then(json => this.setState({posts: json}));
+    // fetch("https://mail.ru")
+    //     .then(response => response.json())
+    //     .then(json => this.setState({posts: json}));
   }
 
   render() {
