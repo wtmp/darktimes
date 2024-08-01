@@ -5,9 +5,9 @@ RUN apt update -q && \
 
 WORKDIR /opt/client
 
-#COPY ../client/package.json .
-#COPY ../client/package-lock.json .
+COPY package.json .
+COPY package-lock.json .
 
-#RUN npm install
+RUN npm install
 
 CMD ["/bin/sh", "-c", "npm start"]
