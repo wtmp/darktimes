@@ -36,9 +36,7 @@ class DarkTimes extends React.Component {
             >
               Learn React
             </a>
-              <dev>
-
-              </dev>
+            <div className="div">huy pezda</div>
           </header>
         </div>
     );
