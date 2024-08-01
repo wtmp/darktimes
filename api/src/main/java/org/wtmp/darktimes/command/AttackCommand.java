@@ -42,7 +42,7 @@ public class AttackCommand extends Command {
                                                     .text("Look123")
                                                     .webApp(WebAppInfo
                                                             .builder()
-                                                            .url("https://wtmp.org:1982/")
+                                                            .url("https://wtmp.org:1982/api/1")
                                                             .build())
                                             .build()))
                                     .build())
