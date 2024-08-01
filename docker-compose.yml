@@ -24,7 +24,5 @@ services:
     build:
       context: client
     restart: always
-    volumes:
-      - ./client:/opt/client
     ports:
       - "3000:3000"

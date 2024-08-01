@@ -7,6 +7,8 @@ WORKDIR /opt/client
 
 COPY package.json .
 COPY package-lock.json .
+COPY /public .
+COPY /src .
 
 RUN npm install
 

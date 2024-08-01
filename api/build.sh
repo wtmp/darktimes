@@ -1,4 +1,4 @@
 #!/bin/bash
-cd ../api
+./gradlew wrapper
 ./gradlew clean installDist copyConfig
-chmod +x $(pwd)/build/install/api/bin/api
+chmod +x ./build/install/api/bin/api
