@@ -1,11 +1,11 @@
 package org.wtmp.darktimes.game.map;
 
-import jakarta.inject.Inject;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TileMapRender {
-    @Inject
+    @Resource
     TileMapRepository tileMapRepository;
 
     public String renderViewport(int x, int y, int width, int height) {

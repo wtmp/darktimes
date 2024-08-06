@@ -1,7 +1,7 @@
 package org.wtmp.darktimes.game.creature;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wtmp.darktimes.game.Point;
 
@@ -14,7 +14,7 @@ import java.util.Set;
 public class InMemoryCreatureRepository implements CreatureRepository {
     private Map<Point, Set<Creature>> creatures = new HashMap<>();
 
-    @Inject
+    @Autowired
     CreatureDefinitionRepository creatureDefinitionRepository;
 
     @Override

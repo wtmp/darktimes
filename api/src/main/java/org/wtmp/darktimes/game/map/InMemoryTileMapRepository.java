@@ -1,7 +1,7 @@
 package org.wtmp.darktimes.game.map;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.inject.Inject;
+import jakarta.annotation.Resource;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 import org.wtmp.darktimes.game.Point;
@@ -28,7 +28,7 @@ public class InMemoryTileMapRepository implements TileMapRepository {
         return tiles.get(key);
     }
 
-    @Inject
+    @Resource
     TileMapDefinitionRepository tileMapDefinitionRepository;
 
     private static final int TILE_TYPE_UNDEFINED = 0;
