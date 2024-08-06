@@ -1,6 +1,6 @@
 package org.wtmp.darktimes.api;
 
-import jakarta.inject.Inject;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +8,7 @@ import org.wtmp.darktimes.game.map.TileMapRender;
 
 @RestController
 public class MapController {
-    @Inject
+    @Resource
     TileMapRender tileMapRender;
 
     @GetMapping("/{token}")

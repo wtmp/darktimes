@@ -1,17 +1,15 @@
 package org.wtmp.darktimes.game.creature;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.inject.Inject;
 import org.springframework.stereotype.Component;
-import org.wtmp.darktimes.repository.IconRepository;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class InMemoryCreatureDefinitionRepository implements CreatureDefinitionRepository {
-    @Inject
-    IconRepository iconRepository;
+//    @Resource
+//    IconRepository iconRepository;
 
     private Map<String, CreatureDefinition> definitions = new HashMap<>();
 
@@ -33,7 +31,7 @@ public class InMemoryCreatureDefinitionRepository implements CreatureDefinitionR
                 .health(2)
                 .attack(3)
                 .defence(0)
-                .icon(iconRepository.findByCode(86))
+//                .icon()
                 .build();
 
         definitions.put(definition.getShortname(), definition);
@@ -44,7 +42,7 @@ public class InMemoryCreatureDefinitionRepository implements CreatureDefinitionR
                 .health(2)
                 .attack(3)
                 .defence(0)
-                .icon(iconRepository.findByCode(88))
+//                .icon(iconRepository.findByCode(88))
                 .build();
 
         definitions.put(definition.getShortname(), definition);
@@ -55,7 +53,7 @@ public class InMemoryCreatureDefinitionRepository implements CreatureDefinitionR
                 .health(10)
                 .attack(2)
                 .defence(10)
-                .icon(iconRepository.findByCode(67))
+//                .icon(iconRepository.findByCode(67))
                 .build();
 
         definitions.put(definition.getShortname(), definition);
