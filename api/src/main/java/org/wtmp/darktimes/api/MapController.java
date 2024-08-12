@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.wtmp.darktimes.game.map.TileMapRender;
 
-@RestController
+//@RestController
 public class MapController {
     @Resource
     TileMapRender tileMapRender;

@@ -1,0 +1,282 @@
+Архитектура
+
+    Клиентская часть (React)
+        Отправляет учетные данные пользователя (логин и пароль) на сервер для аутентификации.
+        Получает JWT токен от сервера и сохраняет его (например, в localStorage или sessionStorage).
+        При выполнении защищенных запросов к API отправляет токен в заголовке Authorization.
+
+    Серверная часть (Java API)
+        Принимает учетные данные пользователя и проверяет их.
+        Если аутентификация успешна, создает JWT токен и отправляет его клиенту.
+        Для каждого защищенного запроса проверяет токен, чтобы авторизовать пользователя.
+
+Пошаговый процесс
+
+    Аутентификация пользователя
+        Клиент отправляет запрос с учетными данными (логин и пароль) на сервер.
+
+    Создание и отправка JWT токена
+        Сервер проверяет учетные данные.
+        Если учетные данные верны, сервер создает JWT токен, включающий информацию о пользователе и срок действия токена.
+        Сервер отправляет токен клиенту.
+
+    Сохранение токена на клиенте
+        Клиент получает токен и сохраняет его в localStorage или sessionStorage.
+
+    Запросы к защищенным ресурсам
+        При выполнении запросов к защищенным ресурсам клиент добавляет токен в заголовок Authorization: Bearer <token>.
+
+    Проверка токена на сервере
+        Сервер получает запрос, извлекает токен из заголовка и проверяет его.
+        Если токен валидный, сервер обрабатывает запрос и отправляет ответ клиенту.
+
+Пример кода
+1. Клиентская часть (React)
+
+javascript
+
+// src/authService.js
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8080/api/auth/';
+
+class AuthService {
+  login(username, password) {
+    return axios
+      .post(API_URL + 'signin', {
+        username,
+        password
+      })
+      .then(response => {
+        if (response.data.accessToken) {
+          localStorage.setItem('user', JSON.stringify(response.data));
+        }
+        return response.data;
+      });
+  }
+
+  logout() {
+    localStorage.removeItem('user');
+  }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+}
+
+export default new AuthService();
+
+javascript
+
+// src/App.js
+import React from 'react';
+import AuthService from './authService';
+
+class App extends React.Component {
+  handleLogin = () => {
+    AuthService.login('username', 'password').then(() => {
+      this.props.history.push('/profile');
+      window.location.reload();
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <button onClick={this.handleLogin}>Login</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+2. Серверная часть (Java, Spring Boot)
+
+java
+
+// pom.xml dependencies
+<dependency>
+  <groupId>io.jsonwebtoken</groupId>
+  <artifactId>jjwt</artifactId>
+  <version>0.9.1</version>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+java
+
+// JwtTokenUtil.java
+import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+@Component
+public class JwtTokenUtil {
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.expiration}")
+    private Long expiration;
+
+    public String generateToken(UserDetails userDetails) {
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
+    }
+
+    public String getUsernameFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        String username = getUsernameFromToken(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        Date expiration = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+        return expiration.before(new Date());
+    }
+}
+
+java
+
+// JwtRequestFilter.java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import io.jsonwebtoken.ExpiredJwtException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@Component
+public class JwtRequestFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
+
+        final String requestTokenHeader = request.getHeader("Authorization");
+
+        String username = null;
+        String jwtToken = null;
+
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+            jwtToken = requestTokenHeader.substring(7);
+            try {
+                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Unable to get JWT Token");
+            } catch (ExpiredJwtException e) {
+                System.out.println("JWT Token has expired");
+            }
+        } else {
+            logger.warn("JWT Token does not begin with Bearer String");
+        }
+
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
+            if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }
+        chain.doFilter(request, response);
+    }
+}
+
+java
+
+// WebSecurityConfig.java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+
+    @Autowired
+    private UserDetailsService jwtUserDetailsService;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable()
+                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated().and()
+                .exceptionHandling().and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+}
