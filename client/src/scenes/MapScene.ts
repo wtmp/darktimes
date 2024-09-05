@@ -38,33 +38,35 @@ export class MapScene extends Scene {
 
         this._keys = this.input.keyboard?.addKeys("A, D, W, S");
 
+        const start = 19 * 116 + 37;
+
         this.anims.create({
             key: "humanDown",
-            frames: this.anims.generateFrameNumbers("human", {start: 6 * 116 + 37, first: 6 * 116 + 37, end: 6 * 116 + 39}),
+            frames: this.anims.generateFrameNumbers("human", {start: start, first: start, end: start + 2}),
             frameRate: 10,
             repeat: -1
         });
         this.anims.create({
             key: "humanUp",
-            frames: this.anims.generateFrameNumbers("human", {start: 6 * 116 + 43, first: 6 * 116 + 43, end: 6 * 116 + 45}),
+            frames: this.anims.generateFrameNumbers("human", {start: start + 6, first: start + 6, end: start + 6 + 2}),
             frameRate: 10,
             repeat: -1
         });
         this.anims.create({
             key: "humanRight",
-            frames: this.anims.generateFrameNumbers("human", {start: 6 * 116 + 40, first: 6 * 116 + 40, end: 6 * 116 + 42}),
+            frames: this.anims.generateFrameNumbers("human", {start: start + 3, first: start + 3, end: start + 3 + 2}),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: "humanLeft",
-            frames: this.anims.generateFrameNumbers("human", {start: 6 * 116 + 40, first: 6 * 116 + 40, end: 6 * 116 + 42}),
+            frames: this.anims.generateFrameNumbers("human", {start: start + 3, first: start + 3, end: start + 3 + 2}),
             frameRate: 10,
             repeat: -1
         });
 
-        this._human = this.add.sprite(200, 200, "human", 6 * 116 + 37);
+        this._human = this.add.sprite(200, 200, "human", start);
 
         this._human.scale = 2;
     }
