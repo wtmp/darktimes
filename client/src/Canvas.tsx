@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
+import * as Phaser from "phaser";
 import {Game} from "phaser";
 import {MapScene} from "./scenes/MapScene";
-import * as Phaser from "phaser";
 
 /**
  * A components provides game scenes
@@ -16,6 +16,7 @@ export class Canvas extends Component {
             type: Phaser.AUTO,
             width: 400,
             height: 400,
+            pixelArt: true,
             parent: this._parent,
             scene: MapScene
         });
