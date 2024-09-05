@@ -69,6 +69,22 @@ export class MapScene extends Scene {
         this._human = this.add.sprite(200, 200, "human", start);
 
         this._human.scale = 2;
+
+        this.input.on("pointerdown", () => {
+            if(this.game.input.mousePointer!.x > this._human!.x) {
+                this._human?.play("humanRight").setFlipX(false);
+            }
+            if(this.game.input.mousePointer!.x < this._human!.x) {
+                this._human?.play("humanLeft").setFlipX(true);
+            }
+            if(this.game.input.mousePointer!.y > this._human!.y) {
+                this._human?.play("humanDown");
+            }
+            if(this.game.input.mousePointer!.y < this._human!.y) {
+                this._human?.play("humanUp");
+            }
+
+        }, this);
     }
 
     update(time: number, delta: number) {
