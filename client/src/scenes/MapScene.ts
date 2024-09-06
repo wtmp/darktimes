@@ -42,49 +42,35 @@ export class MapScene extends Scene {
 
         this.anims.create({
             key: "humanDown",
-            frames: this.anims.generateFrameNumbers("human", {start: start, first: start, end: start + 2}),
+            frames: this.anims.generateFrameNumbers("human", {frames: [start, start + 1, start + 2, start]}),
             frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: "humanUp",
-            frames: this.anims.generateFrameNumbers("human", {start: start + 6, first: start + 6, end: start + 6 + 2}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: "humanRight",
-            frames: this.anims.generateFrameNumbers("human", {start: start + 3, first: start + 3, end: start + 3 + 2}),
-            frameRate: 10,
-            repeat: -1
+            repeat: 1
         });
 
         this.anims.create({
-            key: "humanLeft",
-            frames: this.anims.generateFrameNumbers("human", {start: start + 3, first: start + 3, end: start + 3 + 2}),
+            key: "humanUp",
+            frames: this.anims.generateFrameNumbers("human", {frames: [start + 6, start + 7, start + 8, start + 6]}),
             frameRate: 10,
-            repeat: -1
+            repeat: 1
+        });
+
+        this.anims.create({
+            key: "humanRightLeft",
+            frames: this.anims.generateFrameNumbers("human", {frames: [start + 3, start + 4, start + 5, start + 3]}),
+            frameRate: 10,
+            repeat: 1
         });
 
         this._human = this.add.sprite(200, 200, "human", start);
 
         this._human.scale = 2;
 
-        this.input.on("pointerdown", () => {
-            if(this.game.input.mousePointer!.x > this._human!.x) {
-                this._human?.play("humanRight").setFlipX(false);
-            }
-            if(this.game.input.mousePointer!.x < this._human!.x) {
-                this._human?.play("humanLeft").setFlipX(true);
-            }
-            if(this.game.input.mousePointer!.y > this._human!.y) {
-                this._human?.play("humanDown");
-            }
-            if(this.game.input.mousePointer!.y < this._human!.y) {
-                this._human?.play("humanUp");
-            }
-
-        }, this);
+        this._human.setInteractive();
+        this.input.setDraggable(this._human);
+        this.input.on("drag", (pointer: any, gameObject: Sprite, dragX: number, dragY: number) => {
+            this._human?.setX(dragX);
+            this._human?.setY(dragY);
+        })
     }
 
     update(time: number, delta: number) {
@@ -103,11 +89,11 @@ export class MapScene extends Scene {
         }
 
         if(this._keys.D.isDown) {
-            this._human?.play("humanRight").setFlipX(false);
+            this._human?.play("humanRightLeft").setFlipX(false);
         }
 
         if(this._keys.A.isDown) {
-            this._human?.play("humanLeft").setFlipX(true);
+            this._human?.play("humanRightLeft").setFlipX(true);
         }
 
         if(this._keys.W.isDown) {
