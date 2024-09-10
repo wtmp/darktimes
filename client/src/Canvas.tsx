@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import * as Phaser from "phaser";
 import {Game} from "phaser";
-import {MapScene} from "./scenes/MapScene";
+import {MapScene} from "./scene/MapScene";
 
 /**
- * A components provides game scenes
+ * A components provides game scene
  */
 export class Canvas extends Component {
     private _game!:Game;

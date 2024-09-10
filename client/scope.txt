@@ -1,0 +1,2 @@
+I am as a player can see a figure in the center of the scene
+I am as a player can see the map segment with size 100 x 100
