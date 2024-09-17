@@ -1,4 +1,4 @@
-export class Map {
+export class MapData {
     private _data? : integer[];
 
     constructor() {

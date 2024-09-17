@@ -33,19 +33,7 @@ export class MapScene extends Scene {
     }
 
     create(): void {
-        // this._ellipse = this.add.ellipse(200, 200, 10, 20, 0xff0000);
-        //
-        // this._ellipse.scale = 2;
-        //
-        // this._ellipse.setInteractive();
-        //
-        // this._ellipse.on("pointerdown", () => {
-        //     this._text.setText("pezda");
-        // });
-
         this._text = this.add.text(50, 50, "");
-
-        this._keys = this.input.keyboard?.addKeys("A, D, W, S");
 
         const start = 19 * 116 + 37;
 
@@ -94,7 +82,7 @@ export class MapScene extends Scene {
         const tileset = map.addTilesetImage("tiles");
         const layer = map.createBlankLayer("Background", tileset!);
 
-        if(layer) {
+        if (layer) {
             layer.setScale(2);
         }
 
@@ -107,6 +95,7 @@ export class MapScene extends Scene {
         this._human = this.add.sprite(6 * 32, 6 * 32, "tiles", start);
         this._human.setOrigin(0, 0);
         this._human.scale = 2;
+
 
         // this._human.setInteractive();
         // this.input.setDraggable(this._human);
@@ -121,47 +110,75 @@ export class MapScene extends Scene {
     update(time: number, delta: number) {
         super.update(time, delta);
 
-        // if (Phaser.Input.Keyboard.JustDown(this._keys.D)) {
-        //     this._human?.play("humanRightLeft", true).setFlipX(false);
-        //     let x = this._human!.x + 1;
-        //     let y = this._human!.y;
-        //        this._human!.setX(x);
-        // }
+        if (this.input.mousePointer.isDown) {
+            var offsetX = this.input.mousePointer.x;
+            var offsetY = this.input.mousePointer.y;
 
-        if (this._keys.S.isDown) {
-            // this._x = 14 * 116 + 50;
-            // this._y = 30;
-            // if(this._human) {
-            //     //this._human.x = this._x;
-            //     //this._human.y = this._y;
-            // }
-            // this._text.setText("huy: " + this._x);
-            // this._human?.setFrame(this._x);
-            this._human?.play("humanDown", true);
-            let x = this._human!.x;
-            let y = this._human!.y + 1;
-            this._human!.setY(y);
-        }
-
-        if(this._keys.D.isDown) {
-            this._human?.play("humanRightLeft", true).setFlipX(false);
-            let x = this._human!.x + 1;
-            let y = this._human!.y;
-            this._human!.setX(x);
-        }
-
-        if (this._keys.A.isDown) {
-            this._human?.play("humanRightLeft", true).setFlipX(true);
-            let x = this._human!.x - 1;
-            let y = this._human!.y;
-            this._human!.setX(x);
-        }
-
-        if (this._keys.W.isDown) {
-            this._human?.play("humanUp", true);
-            let x = this._human!.x;
-            let y = this._human!.y - 1;
-            this._human!.setY(y);
+            if (offsetY < 200) {
+                if (offsetX < 200) {
+                    console.log("7");
+                    this._human?.play("humanUp", true).setAngle(-7);
+                    let x = this._human!.x - 1;
+                    let y = this._human!.y - 1;
+                    this._human!.setY(y);
+                    this._human!.setX(x);
+                } else if (offsetX > 200 && offsetX < 240) {
+                    console.log("8");
+                    this._human?.play("humanUp", true).setAngle(0);
+                    let x = this._human!.x;
+                    let y = this._human!.y - 1;
+                    this._human!.setY(y);
+                    this._human!.setX(x);
+                } else if (offsetX > 240) {
+                    console.log("9");
+                    this._human?.play("humanUp", true).setAngle(7);
+                    let x = this._human!.x + 1;
+                    let y = this._human!.y - 1;
+                    this._human!.setY(y);
+                    this._human!.setX(x);
+                }
+            } else if (offsetY > 200 && offsetY < 240) {
+                if (offsetX < 200) {
+                    console.log("4");
+                    this._human?.play("humanRightLeft", true).setFlipX(true).setAngle(0);
+                    let x = this._human!.x - 1;
+                    let y = this._human!.y;
+                    this._human!.setY(y);
+                    this._human!.setX(x);
+                } else if (offsetX > 200 && offsetX < 240) {
+                    console.log("5");
+                } else if (offsetX > 240) {
+                    console.log("6");
+                    this._human?.play("humanRightLeft", true).setFlipX(false).setAngle(0);
+                    let x = this._human!.x + 1;
+                    let y = this._human!.y;
+                    this._human!.setY(y);
+                    this._human!.setX(x);
+                }
+            } else if (offsetY > 240) {
+                if (offsetX < 200) {
+                    console.log("1");
+                    this._human?.play("humanDown", true).setAngle(-7);
+                    let x = this._human!.x - 1;
+                    let y = this._human!.y + 1;
+                    this._human!.setY(y);
+                    this._human!.setX(x);
+                } else if (offsetX > 200 && offsetX < 240) {
+                    console.log("2");
+                    this._human?.play("humanDown", true).setAngle(0);
+                    let x = this._human!.x;
+                    let y = this._human!.y + 1;
+                    this._human!.setY(y);
+                    this._human!.setX(x);
+                } else if (offsetX > 240) {
+                    console.log("3");
+                    this._human?.play("humanDown", true).setAngle(7);
+                    let x = this._human!.x + 1;
+                    let y = this._human!.y + 1;
+                    this._human!.setY(y);
+                    this._human!.setX(x);
+                }
+            }
         }
     }
 }
