@@ -1,9 +1,10 @@
+import * as Phaser from "phaser";
 import {Scene} from "phaser";
 import Ellipse = Phaser.GameObjects.Ellipse;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
 
-export class MapScene extends Scene {
+export class GameScene extends Scene {
     private _scale: integer = 0;
     private _keys: any;
 
@@ -16,6 +17,10 @@ export class MapScene extends Scene {
     private _human?: Sprite;
 
 
+    constructor() {
+        super("GameScene");
+    }
+
     get human(): Phaser.GameObjects.Sprite | any {
         return this._human;
     }
@@ -25,15 +30,11 @@ export class MapScene extends Scene {
     }
 
     preload(): void {
-        this.load.spritesheet("tiles", "./assets/blowharder.png", {
-                frameWidth: 16,
-                frameHeight: 16
-            }
-        );
+
     }
 
     create(): void {
-        this._text = this.add.text(50, 50, "");
+        this._text = this.add.text(50, 50, "DARK TIMES");
 
         const start = 19 * 116 + 37;
 
@@ -41,21 +42,21 @@ export class MapScene extends Scene {
             key: "humanDown",
             frames: this.anims.generateFrameNumbers("tiles", {frames: [start, start + 1, start + 2, start]}),
             frameRate: 10,
-            repeat: 1
+            repeat: 0
         });
 
         this.anims.create({
             key: "humanUp",
             frames: this.anims.generateFrameNumbers("tiles", {frames: [start + 6, start + 7, start + 8, start + 6]}),
             frameRate: 10,
-            repeat: 1
+            repeat: 0
         });
 
         this.anims.create({
             key: "humanRightLeft",
             frames: this.anims.generateFrameNumbers("tiles", {frames: [start + 3, start + 4, start + 5, start + 3]}),
             frameRate: 10,
-            repeat: 1
+            repeat: 0
         });
 
         // for(let y=0; y<13; y++) {
@@ -109,6 +110,9 @@ export class MapScene extends Scene {
 
     update(time: number, delta: number) {
         super.update(time, delta);
+        if (this.input.mousePointer.leftButtonReleased()) {
+            this.human.setAngle(0);
+        }
 
         if (this.input.mousePointer.isDown) {
             var offsetX = this.input.mousePointer.x;

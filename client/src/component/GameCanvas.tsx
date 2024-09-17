@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import * as Phaser from "phaser";
 import {Game} from "phaser";
-import {MapScene} from "./scene/MapScene";
+import {GameScene} from "../scene/GameScene";
+import {BootScene} from "../scene/BootScene";
 
 /**
  * A components provides game scene
  */
-export class Canvas extends Component {
+export class GameCanvas extends Component {
     private _game!:Game;
 
     private readonly _parent = "phaser-canvas";
@@ -18,7 +19,7 @@ export class Canvas extends Component {
             height: 400,
             pixelArt: true,
             parent: this._parent,
-            scene: MapScene
+            scene: [BootScene, GameScene]
         });
     }
 
