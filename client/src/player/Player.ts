@@ -1,23 +1,14 @@
 export class Player {
-    private _name? : string;
-    private _id? : string;
-    private _x? : integer;
-    private _y? : integer;
+    private _name : string = "default name";
+    private _x : integer = 0;
+    private _y : integer = 0;
 
-    get name(): string | any {
+    get name(): string {
         return this._name;
     }
 
     set name(value: string) {
         this._name = value;
-    }
-
-    get id(): string | any {
-        return this._id;
-    }
-
-    set id(value: string) {
-        this._id = value;
     }
 
     get x(): any {

@@ -3,6 +3,7 @@ import {Scene} from "phaser";
 import Ellipse = Phaser.GameObjects.Ellipse;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
+import {PlayerConnection} from "../player/PlayerConnection";
 
 export class GameScene extends Scene {
     private _scale: integer = 0;
@@ -16,6 +17,7 @@ export class GameScene extends Scene {
 
     private _human?: Sprite;
 
+    private _connection : PlayerConnection | undefined;
 
     constructor() {
         super("GameScene");
@@ -30,12 +32,6 @@ export class GameScene extends Scene {
     }
 
     preload(): void {
-
-    }
-
-    create(): void {
-        this._text = this.add.text(50, 50, "DARK TIMES");
-
         const start = 19 * 116 + 37;
 
         this.anims.create({
@@ -58,6 +54,12 @@ export class GameScene extends Scene {
             frameRate: 10,
             repeat: 0
         });
+
+        this._connection = new PlayerConnection("ws://localhost:3000");
+    }
+
+    create(): void {
+        this._text = this.add.text(50, 50, "DARK TIMES");
 
         // for(let y=0; y<13; y++) {
         //     for(let x = 0; x<13; x++) {
@@ -92,6 +94,8 @@ export class GameScene extends Scene {
                 map.putTileAt(tilesMap[y * 5 + x], x, y, false, layer!);
             }
         }
+
+        const start = 19 * 116 + 37;
 
         this._human = this.add.sprite(6 * 32, 6 * 32, "tiles", start);
         this._human.setOrigin(0, 0);
