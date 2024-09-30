@@ -2,6 +2,11 @@ export class PlayerConnection {
     private _url : string;
     private _connection! : WebSocket;
 
+
+    set connection(value: WebSocket) {
+        this._connection = value;
+    }
+
     constructor(url : string) {
         this._url = url;
         this.connect();

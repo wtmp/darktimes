@@ -15,7 +15,8 @@ export class BootScene extends Scene {
     }
 
     create() : void {
-        console.log("boot complete");
         this.scene.start("GameScene");
+
+        console.log("boot complete");
     }
 }

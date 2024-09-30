@@ -1,9 +1,9 @@
 import * as Phaser from "phaser";
 import {Scene} from "phaser";
+import {PlayerConnection} from "../player/PlayerConnection";
 import Ellipse = Phaser.GameObjects.Ellipse;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
-import {PlayerConnection} from "../player/PlayerConnection";
 
 export class GameScene extends Scene {
     private _scale: integer = 0;
@@ -14,6 +14,11 @@ export class GameScene extends Scene {
 
     private _x: integer = 0;
     private _y: integer = 0;
+
+    private _dx: integer = 0;
+    private _dy: integer = 0;
+
+
 
     private _human?: Sprite;
 
@@ -83,6 +88,7 @@ export class GameScene extends Scene {
         });
 
         const tileset = map.addTilesetImage("tiles");
+
         const layer = map.createBlankLayer("Background", tileset!);
 
         if (layer) {
@@ -91,7 +97,7 @@ export class GameScene extends Scene {
 
         for (let y = 0; y < 5; y++) {
             for (let x = 0; x < 5; x++) {
-                map.putTileAt(tilesMap[y * 5 + x], x, y, false, layer!);
+                map.putTileAt(tilesMap[Math.floor(Math.random() * 5) * 5 + Math.floor(Math.random() * 5)], x, y, false, layer!);
             }
         }
 
