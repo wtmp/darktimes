@@ -4,6 +4,7 @@ import {PlayerConnection} from "../player/PlayerConnection";
 import Ellipse = Phaser.GameObjects.Ellipse;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
+import {Game} from "../game/Game";
 
 export class GameScene extends Scene {
     private _scale: integer = 0;
@@ -22,10 +23,12 @@ export class GameScene extends Scene {
 
     private _human?: Sprite;
 
-    private _connection : PlayerConnection | undefined;
+    //private _connection : PlayerConnection | undefined;
 
     constructor() {
         super("GameScene");
+
+        new Game();
     }
 
     get human(): Phaser.GameObjects.Sprite | any {
@@ -60,7 +63,7 @@ export class GameScene extends Scene {
             repeat: 0
         });
 
-        this._connection = new PlayerConnection("ws://localhost:3000");
+        //this._connection = new PlayerConnection("ws://localhost:3000");
     }
 
     create(): void {
