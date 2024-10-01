@@ -10,7 +10,7 @@ export class WorldMapUpdater {
     update(data: number[]) : void {
         if(data) {
             if(this._worldMap) {
-                this._worldMap.tileData = data;
+                this._worldMap.tiles = data;
             }
         }
     }

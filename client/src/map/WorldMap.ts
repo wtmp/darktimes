@@ -1,22 +1,14 @@
 export class WorldMap {
-    private _width: number = 0;
-    private _height: number = 0;
-    private _tileSize: number = 0;
+    private _width: number;
+    private _height: number;
+    private _tileSide: number;
 
-    private _tileData: number[] | undefined;
+    private _tiles: number[] | undefined;
 
     constructor(width: number, height: number, tileSize: number) {
         this._width = width;
         this._height = height;
-        this._tileSize = tileSize;
-    }
-
-    get tileData(): number[] {
-        return this._tileData === undefined ? [] : this._tileData;
-    }
-
-    set tileData(value: number[]) {
-        this._tileData = value;
+        this._tileSide = tileSize;
     }
 
     get width(): number {
@@ -27,7 +19,15 @@ export class WorldMap {
         return this._height;
     }
 
-    get tileSize(): number {
-        return this._tileSize;
+    get tileSide(): number {
+        return this._tileSide;
+    }
+
+    get tiles(): number[] | undefined {
+        return this._tiles;
+    }
+
+    set tiles(value: number[] | undefined) {
+        this._tiles = value;
     }
 }
