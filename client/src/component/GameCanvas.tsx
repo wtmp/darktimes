@@ -8,7 +8,7 @@ import {BootScene} from "../scene/BootScene";
  * A components provides game scene
  */
 export class GameCanvas extends Component {
-    private _game!:Game;
+    private _game: Game | undefined;
 
     private readonly _parent = "phaser-canvas";
 
@@ -19,7 +19,10 @@ export class GameCanvas extends Component {
             height: 400,
             pixelArt: true,
             parent: this._parent,
-            scene: [BootScene, GameScene]
+            scene: [
+                BootScene,
+                GameScene
+            ]
         });
     }
 

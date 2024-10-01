@@ -1,5 +1,5 @@
 export interface GameConnection {
-    start(timeout: number) : void;
-    stop() : void;
+    open(timeout: number) : void;
+    close() : void;
     isAlive() : boolean;
 }

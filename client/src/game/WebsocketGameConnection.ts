@@ -1,14 +1,17 @@
 import {GameConnection} from "./GameConnection";
 import {GameTransceiver} from "./GameTransceiver";
+import {GamePublisher} from "./GamePublisher";
 
 export class WebsocketGameConnection implements GameConnection, GameTransceiver {
     private _url: string;
     private _webSocket: WebSocket | undefined;
     private _isStopped: boolean;
+    private _publisher: GamePublisher | undefined;
 
-    constructor(url: string) {
+    constructor(url: string, publisher: GamePublisher) {
         this._url = url;
         this._isStopped = false;
+        this._publisher = publisher;
     }
 
     private onOpen = (ev : Event) => {
@@ -16,22 +19,28 @@ export class WebsocketGameConnection implements GameConnection, GameTransceiver 
     }
 
     private onClose = (ev : CloseEvent) => {
-        console.log(ev + " close connection");
-    }
-
-    private onError = (ev : Event) => {
-        console.log(ev + " error");
+        console.log("socket closed. " + ev.reason);
 
         if(!this._isStopped) {
-            this.start(1000);
+            this.open(1000);
         }
     }
 
-    private onMessage = (ev: MessageEvent) => {
-        this.receive(ev);
+    private onError = (ev : Event) => {
+        console.log("socket error.");
+
+        if(this._webSocket) {
+            this._webSocket.close();
+        }
     }
 
-    start(timeout: number) : void {
+    private onMessage = (ev:MessageEvent) => {
+        if(this._publisher) {
+            this._publisher.notify("huy", "pezda");
+        }
+    }
+
+    open(timeout: number) : void {
         this._isStopped = false;
 
         setTimeout(() => {
@@ -60,7 +69,7 @@ export class WebsocketGameConnection implements GameConnection, GameTransceiver 
         console.log(ev + " event was received");
     }
 
-    stop() : void {
+    close() : void {
         this._isStopped = true;
     }
 

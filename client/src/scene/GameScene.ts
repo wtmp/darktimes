@@ -1,6 +1,5 @@
 import * as Phaser from "phaser";
 import {Scene} from "phaser";
-import {PlayerConnection} from "../player/PlayerConnection";
 import Ellipse = Phaser.GameObjects.Ellipse;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
