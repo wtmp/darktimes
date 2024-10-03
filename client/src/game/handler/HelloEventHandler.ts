@@ -2,6 +2,9 @@ import {EventHandler} from "../event/EventHandler";
 
 export class HelloEventHandler implements EventHandler {
     handle(payload: string): void {
-        console.log("huy123" + payload);
+        let o = JSON.parse(payload);
+        console.log("huy123" + o);
+
+        console.log(" huy ");
     }
 }

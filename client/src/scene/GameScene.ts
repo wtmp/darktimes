@@ -65,13 +65,11 @@ export class GameScene extends Scene {
     }
 
     create(): void {
-        new Game(new Server("huy123"))
-
         this._text = this.add.text(50, 50, "DARK TIMES");
 
         // for(let y=0; y<13; y++) {
         //     for(let x = 0; x<13; x++) {
-        //         this.add.sprite(x * 32, y * 32, "tiles", start + 32).setOrigin(0, 0).scale = 2;
+        //         this.add.entity(x * 32, y * 32, "tiles", start + 32).setOrigin(0, 0).scale = 2;
         //     }
         // }
 
@@ -119,6 +117,8 @@ export class GameScene extends Scene {
         // })
 
         this.cameras.main.startFollow(this._human);
+
+        new Game(new Server("huy123"), this);
     }
 
     update(time: number, delta: number) {

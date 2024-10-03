@@ -10,8 +10,9 @@ export class FakeServerConnect implements ServerConnect {
         this._dispatcher = dispatcher;
         this._server = server;
 
-        this._dispatcher.dispatch("hello", "hello123asdf");
-        this._dispatcher.dispatch("hello2", "hello1");
+        this._dispatcher.dispatch("SHOW_ENTITY", "{\"title\": \"huy\", \"code\": \"2244\", \"x\": \"32\", \"y\": \"32\"}");
+        this._dispatcher.dispatch("SHOW_ENTITY", "{\"title\": \"huy\", \"code\": \"2244\", \"x\": \"64\", \"y\": \"32\"}");
+        this._dispatcher.dispatch("SHOW_ENTITY", "{\"title\": \"huy\", \"code\": \"2244\", \"x\": \"128\", \"y\": \"32\"}");
     }
 
     isConnected(): boolean {
