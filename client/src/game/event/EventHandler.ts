@@ -1,3 +1,3 @@
-export interface CommandListener {
+export interface EventHandler {
     handle(payload: string) : void;
 }

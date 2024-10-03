@@ -1,36 +1,25 @@
-import {WebsocketGameConnection} from "./WebsocketGameConnection";
-import {GamePublisher} from "./GamePublisher";
-import {GameListener} from "./GameListener";
+import {Server} from "./server/Server";
+import {ServerConnect} from "./server/ServerConnect";
+import {FakeServerConnect} from "./FakeServerConnect";
+import {GameEventDispatcher} from "./GameEventDispatcher";
+import {ServerPublisher} from "./server/ServerPublisher";
+import {EventDispatcher} from "./event/EventDispatcher";
+import {GameServerPublisher} from "./GameServerPublisher";
+import {HelloEventHandler} from "./handler/HelloEventHandler";
 
-export class Game implements GamePublisher {
-    private _commands: Map<string, Set<GameListener>> = new Map<string, Set<GameListener>>();
+export class Game {
+    private _server!: Server;
 
-    constructor() {
-        const websocket = new WebsocketGameConnection("ws://localhost:3003", this);
-        websocket.open(1000);
-    }
+    constructor(server: Server) {
+        this._server = server;
 
-    attach(command: string, listener: GameListener): void {
-        let listeners = this._commands.get(command);
+        let serverConnect: ServerConnect = new FakeServerConnect();
+        let serverPublisher: ServerPublisher = new GameServerPublisher();
+        let eventDispatcher: EventDispatcher = new GameEventDispatcher(serverPublisher);
 
-        if(!listeners) {
-            listeners = new Set<GameListener>();
-        }
-        listeners.add(listener);
+        serverPublisher.attach("hello", new HelloEventHandler());
+        serverPublisher.attach("hello2", new HelloEventHandler());
 
-        this._commands.set(command, listeners);
-    }
-
-    detach(command: string, listener: GameListener): void {
-    }
-
-    notify(command: string, payload: string): void {
-        let listeners = this._commands.get(command);
-
-        if(listeners) {
-            for (const listener of listeners) {
-                listener.update(payload);
-            }
-        }
+        serverConnect.connect(this._server, eventDispatcher);
     }
 }

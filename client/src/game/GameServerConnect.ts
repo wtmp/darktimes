@@ -1,14 +1,12 @@
-import {GameConnection} from "./GameConnection";
-import {GameTransceiver} from "./GameTransceiver";
-import {GamePublisher} from "./GamePublisher";
+import {ServerPublisher} from "./server/ServerPublisher";
 
-export class WebsocketGameConnection implements GameConnection, GameTransceiver {
+export class GameServerConnect {
     private _url: string;
     private _webSocket: WebSocket | undefined;
     private _isStopped: boolean;
-    private _publisher: GamePublisher | undefined;
+    private _publisher: ServerPublisher | undefined;
 
-    constructor(url: string, publisher: GamePublisher) {
+    constructor(url: string, publisher: ServerPublisher) {
         this._url = url;
         this._isStopped = false;
         this._publisher = publisher;

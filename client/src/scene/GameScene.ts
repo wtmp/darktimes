@@ -4,6 +4,7 @@ import Ellipse = Phaser.GameObjects.Ellipse;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
 import {Game} from "../game/Game";
+import {Server} from "../game/server/Server";
 
 export class GameScene extends Scene {
     private _scale: integer = 0;
@@ -26,8 +27,6 @@ export class GameScene extends Scene {
 
     constructor() {
         super("GameScene");
-
-        new Game();
     }
 
     get human(): Phaser.GameObjects.Sprite | any {
@@ -66,6 +65,8 @@ export class GameScene extends Scene {
     }
 
     create(): void {
+        new Game(new Server("huy123"))
+
         this._text = this.add.text(50, 50, "DARK TIMES");
 
         // for(let y=0; y<13; y++) {
