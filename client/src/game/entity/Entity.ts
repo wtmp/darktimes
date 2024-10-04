@@ -1,17 +1,25 @@
+import Sprite = Phaser.GameObjects.Sprite;
+import * as Phaser from "phaser";
+
 export class Entity {
-    private _title!: string;
-    private _code!: number;
+    private _name!: string;
+    private _key!: number;
+    private _sprite: Sprite | undefined;
 
-    constructor(title: string, code: number) {
-        this._title = title;
-        this._code = code;
+    constructor(name: string, key: number) {
+        this._name = name;
+        this._key = key;
     }
 
-    get title(): string {
-        return this._title;
+    get name(): string {
+        return this._name;
     }
 
-    get code(): number {
-        return this._code;
+    get key(): number {
+        return this._key;
+    }
+
+    set sprite(value: Phaser.GameObjects.Sprite | undefined) {
+        this._sprite = value;
     }
 }

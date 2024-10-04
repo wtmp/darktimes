@@ -1,9 +1,9 @@
-import {EventHandler} from "../event/EventHandler";
-import {Scene} from "phaser";
+import {EventController} from "../event/EventController";
 import * as Phaser from "phaser";
+import {Scene} from "phaser";
 import Sprite = Phaser.GameObjects.Sprite;
 
-export class ShowEntityEventHandler implements EventHandler {
+export class EntityAddEventController implements EventController {
     private _scene: Scene;
     private _sprite!: Sprite;
 

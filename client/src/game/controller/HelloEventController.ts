@@ -1,6 +1,6 @@
-import {EventHandler} from "../event/EventHandler";
+import {EventController} from "../event/EventController";
 
-export class HelloEventHandler implements EventHandler {
+export class HelloEventController implements EventController {
     handle(payload: string): void {
         let o = JSON.parse(payload);
         console.log("huy123" + o);

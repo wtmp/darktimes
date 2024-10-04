@@ -5,9 +5,9 @@ import {GameEventDispatcher} from "./GameEventDispatcher";
 import {ServerPublisher} from "./server/ServerPublisher";
 import {EventDispatcher} from "./event/EventDispatcher";
 import {GameServerPublisher} from "./GameServerPublisher";
-import {HelloEventHandler} from "./handler/HelloEventHandler";
+import {HelloEventController} from "./controller/HelloEventController";
 import {Entity} from "./entity/Entity";
-import {ShowEntityEventHandler} from "./handler/ShowEntityEventHandler";
+import {EntityAddEventController} from "./controller/EntityAddEventController";
 import {Scene} from "phaser";
 
 export class Game {
@@ -22,9 +22,12 @@ export class Game {
         let serverPublisher: ServerPublisher = new GameServerPublisher();
         let eventDispatcher: EventDispatcher = new GameEventDispatcher(serverPublisher);
 
-        serverPublisher.attach("hello", new HelloEventHandler());
-        serverPublisher.attach("hello2", new HelloEventHandler());
-        serverPublisher.attach("SHOW_ENTITY", new ShowEntityEventHandler(this._scene));
+        serverPublisher.attach("hello", new HelloEventController());
+        serverPublisher.attach("hello2", new HelloEventController());
+
+        serverPublisher.attach("ENTITY_ADD", new EntityAddEventController(this._scene))
+        serverPublisher.attach("ENTITY_MOVE", new EntityAddEventController(this._scene));
+        serverPublisher.attach("ENTITY_DELETE", new EntityAddEventController(this._scene))
 
         let entity = new Entity("huynja", 750);
 

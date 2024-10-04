@@ -1,21 +1,21 @@
 import {ServerPublisher} from "./server/ServerPublisher";
-import {EventHandler} from "./event/EventHandler";
+import {EventController} from "./event/EventController";
 
 export class GameServerPublisher implements ServerPublisher {
-    private _handlers: Map<string, Set<EventHandler>> = new Map<string, Set<EventHandler>>();
+    private _handlers: Map<string, Set<EventController>> = new Map<string, Set<EventController>>();
 
-    attach(event: string, handler: EventHandler): void {
+    attach(event: string, handler: EventController): void {
         let handlers = this._handlers.get(event);
 
         if(!handlers) {
-            handlers = new Set<EventHandler>();
+            handlers = new Set<EventController>();
         }
         handlers.add(handler);
 
         this._handlers.set(event, handlers);
     }
 
-    detach(handler: EventHandler): void {
+    detach(handler: EventController): void {
     }
 
     notify(forEvent: string, payload: string): void {

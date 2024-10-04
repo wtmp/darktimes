@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import * as Phaser from "phaser";
 import {Game} from "phaser";
-import {GameScene} from "../scene/GameScene";
-import {BootScene} from "../scene/BootScene";
+import {GameMapScene} from "../scene/GameMapScene";
+import {GameBootScene} from "../scene/GameBootScene";
 
 /**
  * A components provides game scene
@@ -20,8 +20,8 @@ export class GameCanvas extends Component {
             pixelArt: true,
             parent: this._parent,
             scene: [
-                BootScene,
-                GameScene
+                GameBootScene,
+                GameMapScene
             ]
         });
     }

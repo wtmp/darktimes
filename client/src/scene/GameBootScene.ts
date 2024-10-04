@@ -1,9 +1,9 @@
 import {Scene} from "phaser";
 
-export class BootScene extends Scene {
+export class GameBootScene extends Scene {
 
     constructor() {
-        super("BootScene");
+        super("GameBootScene");
     }
 
     preload() : void {
@@ -15,7 +15,7 @@ export class BootScene extends Scene {
     }
 
     create() : void {
-        this.scene.start("GameScene");
+        this.scene.start("GameMapScene");
 
         console.log("boot complete");
     }

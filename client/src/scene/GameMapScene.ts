@@ -5,8 +5,11 @@ import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
 import {Game} from "../game/Game";
 import {Server} from "../game/server/Server";
+import {SpriteAttach} from "../sprite/SpriteAttach";
+import {SpriteDetach} from "../sprite/SpriteDetach";
+import {SpriteMove} from "../sprite/SpriteMove";
 
-export class GameScene extends Scene {
+export class GameMapScene extends Scene {
     private _scale: integer = 0;
     private _keys: any;
 
@@ -19,15 +22,18 @@ export class GameScene extends Scene {
     private _dx: integer = 0;
     private _dy: integer = 0;
 
-
+    private _attach!: SpriteAttach;
+    private _detach!: SpriteDetach;
+    private _move!: SpriteMove;
 
     private _human?: Sprite;
 
     //private _connection : PlayerConnection | undefined;
 
     constructor() {
-        super("GameScene");
+        super("GameMapScene");
     }
+
 
     get human(): Phaser.GameObjects.Sprite | any {
         return this._human;
@@ -38,6 +44,8 @@ export class GameScene extends Scene {
     }
 
     preload(): void {
+
+
         const start = 19 * 116 + 37;
 
         this.anims.create({
