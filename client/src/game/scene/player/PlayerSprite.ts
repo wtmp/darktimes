@@ -85,7 +85,7 @@ export class PlayerSprite extends Sprite implements PlayerView {
                 mouse.x,
                 mouse.y);
 
-            this._presenter.handleMouseDown(this.x, this.y, direction);
+            this._presenter.moveTo(this.x, this.y, direction);
         }
     }
 }

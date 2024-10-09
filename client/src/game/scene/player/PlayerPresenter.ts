@@ -12,7 +12,7 @@ export class PlayerPresenter {
         this._playerDirection = new PlayerDirection();
     }
 
-    handleMouseDown(x: number, y: number, direction: string) {
+    moveTo(x: number, y: number, direction: string) {
         if(direction !== "0") {
             this._view.displayAnimation(direction);
         }
