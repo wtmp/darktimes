@@ -48,7 +48,7 @@ export class MapScene extends Scene {
             }
         }
 
-        this._prompt = new PromptText(this);
+        this._prompt = new PromptText(this).setScrollFactor(0);
 
         this._player = new PlayerSprite(this, this.cameras.main.width / 2,
             this.cameras.main.height / 2);
