@@ -23,7 +23,7 @@ export class GameServerPublisher implements ServerPublisher {
 
         if(handlers) {
             for (const handler of handlers) {
-                handler.handle(payload);
+                handler.handle(forEvent, payload);
             }
         }
     }

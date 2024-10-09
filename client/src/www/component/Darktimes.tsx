@@ -1,6 +1,6 @@
 import "./Darktimes.css"
 import React, {Component} from "react";
-import {GameCanvas} from "./GameCanvas";
+import {Canvas} from "./Canvas";
 
 /**
  *
@@ -9,7 +9,7 @@ export class Darktimes extends Component {
     render() {
         return <div>
                 <div className="Darktimes-header">
-                    <GameCanvas />
+                    <Canvas />
                 </div>
                </div>
         ;

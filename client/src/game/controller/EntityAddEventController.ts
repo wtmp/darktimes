@@ -1,15 +1,11 @@
 import {EventController} from "../event/EventController";
 import * as Phaser from "phaser";
-import {Scene} from "phaser";
 import Sprite = Phaser.GameObjects.Sprite;
 
 export class EntityAddEventController implements EventController {
-    private _scene: Scene;
     private _sprite!: Sprite;
 
     constructor(scene: Phaser.Scene) {
-        this._scene = scene;
-
         this._sprite = scene.make.sprite({}, true);
         this._sprite.setOrigin(0, 0);
         this._sprite.scale = 2;
@@ -23,5 +19,6 @@ export class EntityAddEventController implements EventController {
         this._sprite.setX(o.x);
         this._sprite.setY(o.y);
         this._sprite.setTexture("tiles", o.code);
+        this._sprite.setData("name", o.name);
     }
 }

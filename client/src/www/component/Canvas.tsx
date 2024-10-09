@@ -1,29 +1,20 @@
 import React, {Component} from "react";
 import * as Phaser from "phaser";
+import {MapScene} from "../../game/scene/MapScene";
+import {BootScene} from "../../game/scene/BootScene";
 import {Game} from "phaser";
-import {GameMapScene} from "../scene/GameMapScene";
-import {GameBootScene} from "../scene/GameBootScene";
+import {GameEntrypoint} from "../../game/GameEntrypoint";
 
 /**
  * A components provides game scene
  */
-export class GameCanvas extends Component {
+export class Canvas extends Component {
     private _game: Game | undefined;
 
     private readonly _parent = "phaser-canvas";
 
     componentDidMount() {
-        this._game = new Game({
-            type: Phaser.AUTO,
-            width: 400,
-            height: 400,
-            pixelArt: true,
-            parent: this._parent,
-            scene: [
-                GameBootScene,
-                GameMapScene
-            ]
-        });
+       this._game = new GameEntrypoint(this._parent);
     }
 
     componentWillUnmount() {

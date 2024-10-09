@@ -1,14 +1,21 @@
+import { EventController } from "./event/EventController";
 import {EventDispatcher} from "./event/EventDispatcher";
-import {ServerPublisher} from "./server/ServerPublisher";
 
 export class GameEventDispatcher implements EventDispatcher {
-    private _publisher!: ServerPublisher;
-
-    constructor(publisher: ServerPublisher) {
-        this._publisher = publisher;
-    }
+    private _controllers: Map<string, EventController> = new Map();
 
     dispatch(event: string, payload: string): void {
-        this._publisher.notify(event, payload);
+        const controller = this._controllers.get(event);
+        if(controller) {
+            controller.handle(event, payload);
+        }
+    }
+
+    add(event: string, handler: EventController): void {
+        this._controllers.set(event, handler);
+    }
+
+    remove(event: string): void {
+        this._controllers.delete(event);
     }
 }
