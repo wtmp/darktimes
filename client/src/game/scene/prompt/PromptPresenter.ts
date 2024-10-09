@@ -12,11 +12,11 @@ export class PromptPresenter {
 
         switch (key) {
             case "Enter":
-                console.log("command is", text.substring(1, text.length));
-                this._view.displayPrompt(">");
+                console.log("command is", text.substring(2, text.length));
+                this._view.displayPrompt("> ");
                 break;
             case "Backspace":
-                if(text.length > 1) {
+                if(text.length > 2) {
                     this._view.displayPrompt(text.substring(0, text.length - 1));
                 }
                 break;
