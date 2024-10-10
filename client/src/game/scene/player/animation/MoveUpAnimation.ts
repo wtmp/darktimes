@@ -1,7 +1,7 @@
-import {PlayerAnimation} from "../PlayerAnimation";
+import {PlayerSpriteAnimation} from "../PlayerSpriteAnimation";
 import Phaser, {Scene} from "phaser";
 
-export class MoveUpAnimation implements PlayerAnimation {
+export class MoveUpAnimation implements PlayerSpriteAnimation {
     static readonly ANIM_NAME = "player_up";
 
     constructor(scene: Scene) {

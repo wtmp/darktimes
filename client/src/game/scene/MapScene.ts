@@ -1,12 +1,11 @@
 import Phaser, {Scene} from "phaser";
 import {PromptText} from "./prompt/PromptText";
 import {PlayerSprite} from "./player/PlayerSprite";
-import EventEmitter = Phaser.Events.EventEmitter;
 import {PromptEvents} from "./prompt/PromptEvents";
 import {EventBus} from "../event/EventBus";
+import {PlayerText} from "./player/PlayerText";
 
 export class MapScene extends Scene {
-    private _emitter!: EventEmitter;
     private _player!: PlayerSprite;
     private _prompt!: PromptText;
 
@@ -14,13 +13,7 @@ export class MapScene extends Scene {
         super("MapScene");
     }
 
-    get emitter(): Phaser.Events.EventEmitter {
-        return this._emitter;
-    }
-
     create(): void {
-        this._emitter = new Phaser.Events.EventEmitter();
-
         this.add.text(50, 50, "DARK TIMES");
 
         // for(let y=0; y<13; y++) {
@@ -58,15 +51,12 @@ export class MapScene extends Scene {
             }
         }
 
-        this._prompt = new PromptText(this).setScrollFactor(0);
+        this._prompt = new PromptText(this);
+        this._player = new PlayerSprite(this, 0, 0);
 
-        this._player = new PlayerSprite(this, this.cameras.main.width / 2,
-            this.cameras.main.height / 2);
+        new PlayerText(this, 0, 0);
 
         this.cameras.main.startFollow(this._player);
-
-        EventBus.emitter.on(PromptEvents.PromptComplete, (text: string) => {
-        });
     }
 
     update(time: number, delta: number) {

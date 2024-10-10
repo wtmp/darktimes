@@ -10,14 +10,13 @@ export class PromptPresenter {
     }
 
     handleKey(key: string, text: string) {
-        const pattern: RegExp = /[ .?1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдежзийклмнопрстуфхцчшщъыьэюяАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ]/;
+        const pattern: RegExp = /[ .,!?1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдежзийклмнопрстуфхцчшщъыьэюяАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ]/;
 
         switch (key) {
             case "Enter":
                 const sub = text.substring(2, text.length);
-                console.log("command is", sub);
+                EventBus.emit(PromptEvents.PromptSay, sub);
                 this._view.displayPrompt("> ");
-                EventBus.emitter.emit(PromptEvents.PromptComplete, sub);
                 break;
             case "Backspace":
                 if(text.length > 2) {

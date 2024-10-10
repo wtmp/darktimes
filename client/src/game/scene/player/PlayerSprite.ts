@@ -1,27 +1,27 @@
-import {PlayerView} from "./PlayerView";
+import {PlayerSpriteView} from "./PlayerSpriteView";
 import Phaser from "phaser";
 import Sprite = Phaser.GameObjects.Sprite;
-import {PlayerPresenter} from "./PlayerPresenter";
+import {PlayerSpritePresenter} from "./PlayerSpritePresenter";
 import {Simulate} from "react-dom/test-utils";
 import play = Simulate.play;
-import {PlayerAnimation} from "./PlayerAnimation";
+import {PlayerSpriteAnimation} from "./PlayerSpriteAnimation";
 import {MoveDownAnimation} from "./animation/MoveDownAnimation";
 import {MoveUpAnimation} from "./animation/MoveUpAnimation";
 import {MoveSidewayAnimation} from "./animation/MoveSidewayAnimation";
-import {PlayerDirection} from "./PlayerDirection";
+import {PlayerUtils} from "./PlayerUtils";
 
-export class PlayerSprite extends Sprite implements PlayerView {
-    private _presenter: PlayerPresenter;
-    private _animations: PlayerAnimation[];
-    private _direction: PlayerDirection;
+export class PlayerSprite extends Sprite implements PlayerSpriteView {
+    private _presenter: PlayerSpritePresenter;
+    private _animations: PlayerSpriteAnimation[];
+    private _direction: PlayerUtils;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, 200, 200, "tiles", 2241);
+        super(scene, x, y, "tiles", 2241);
 
         scene.add.existing(this);
 
-        this._presenter = new PlayerPresenter(this);
-        this._direction = new PlayerDirection();
+        this._presenter = new PlayerSpritePresenter(this);
+        this._direction = new PlayerUtils();
 
         this._animations = [
             new MoveUpAnimation(scene),
@@ -78,7 +78,7 @@ export class PlayerSprite extends Sprite implements PlayerView {
     }
 
     update(time: number, delta: number) {
-        var mouse = this.scene.input.mousePointer;
+        const mouse = this.scene.input.mousePointer;
 
         console.log(this.x, this.y);
 
@@ -87,7 +87,7 @@ export class PlayerSprite extends Sprite implements PlayerView {
         }
 
         if(mouse.leftButtonDown()) {
-            var direction = this._direction.detect(this.scene.cameras.main.width / 2,
+            const direction = PlayerUtils.detectDirection(this.scene.cameras.main.width / 2,
                 this.scene.cameras.main.height / 2,
                 mouse.x,
                 mouse.y);

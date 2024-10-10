@@ -1,5 +1,5 @@
-export class PlayerDirection {
-    detect(x: number, y: number, x1: number, y1: number): string {
+export class PlayerUtils {
+    static detectDirection(x: number, y: number, x1: number, y1: number): string {
         const dx = x1 - (x + 16);
         const dy = y1 - (y + 16);
         const length = Math.sqrt(dx * dx + dy * dy);

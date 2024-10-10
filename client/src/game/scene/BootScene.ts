@@ -15,13 +15,16 @@ export class BootScene extends Scene {
     }
 
     create() : void {
-        this.add
-            .text(this.game.canvas.width / 2, this.game.canvas.height / 2, "start game")
-            .setInteractive()
-            .on(Phaser.Input.Events.POINTER_DOWN, () => {
-                console.log("start game");
-                this.scene.start("MapScene");
-        });
+        // this.add
+        //     .text(this.game.canvas.width / 2, this.game.canvas.height / 2, "start game")
+        //     .setInteractive()
+        //     .setAlign("justify")
+        //     .on(Phaser.Input.Events.POINTER_DOWN, () => {
+        //         console.log("start game");
+        //         this.scene.start("MapScene");
+        // });
+
+        this.scene.start("MapScene");
 
         console.log("boot complete");
     }

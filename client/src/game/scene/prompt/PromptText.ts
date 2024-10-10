@@ -12,6 +12,8 @@ export class PromptText extends Phaser.GameObjects.Text implements PromptView {
 
         scene.add.existing(this);
 
+        this.setScrollFactor(0);
+
         this.setBackgroundColor('#FFFFFF');
         this.setColor('#000000');
         this.setFont("Arial");

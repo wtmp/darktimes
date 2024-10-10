@@ -1,3 +1,4 @@
 export class PromptEvents {
-    public static readonly PromptComplete = "onpromptcompelete";
+    public static readonly PromptSay = "onpromptsay";
+    public static readonly PromptCommand = "onpromptcommand";
 }

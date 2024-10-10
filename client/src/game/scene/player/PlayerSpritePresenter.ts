@@ -1,15 +1,13 @@
-import {PlayerView} from "./PlayerView";
-import {PlayerDirection} from "./PlayerDirection";
+import {PlayerSpriteView} from "./PlayerSpriteView";
+import {EventBus} from "../../event/EventBus";
+import {PromptEvents} from "../prompt/PromptEvents";
 
 
-export class PlayerPresenter {
-    private _view: PlayerView;
+export class PlayerSpritePresenter {
+    private _view: PlayerSpriteView;
 
-    private _playerDirection: PlayerDirection;
-
-    constructor(view: PlayerView) {
+    constructor(view: PlayerSpriteView) {
         this._view = view;
-        this._playerDirection = new PlayerDirection();
     }
 
     moveTo(x: number, y: number, direction: string) {

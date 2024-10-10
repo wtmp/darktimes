@@ -1,7 +1,7 @@
-import {PlayerAnimation} from "../PlayerAnimation";
+import {PlayerSpriteAnimation} from "../PlayerSpriteAnimation";
 import Phaser, {Scene} from "phaser";
 
-export class MoveSidewayAnimation implements PlayerAnimation {
+export class MoveSidewayAnimation implements PlayerSpriteAnimation {
     static readonly ANIM_NAME = "player_sideway";
 
     constructor(scene: Scene) {

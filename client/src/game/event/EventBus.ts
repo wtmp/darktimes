@@ -1,5 +1,1 @@
-import EventEmitter = Phaser.Events.EventEmitter;
-
-export class EventBus {
-    public static readonly emitter: EventEmitter = new Phaser.Events.EventEmitter();
-}
+export const EventBus = new Phaser.Events.EventEmitter();
