@@ -7,8 +7,8 @@ export class GameEntrypoint extends Game {
         super(
             {
                 type: Phaser.AUTO,
-                width: 320,
-                height: 200,
+                width: window.innerWidth,
+                height: window.innerHeight,
                 pixelArt: true,
                 parent: parent,
                 scene: [

@@ -1,7 +1,9 @@
-import {Scene} from "phaser";
+import Phaser, {Scene} from "phaser";
 import {PromptText} from "./prompt/PromptText";
 import {PlayerSprite} from "./player/PlayerSprite";
 import EventEmitter = Phaser.Events.EventEmitter;
+import {PromptEvents} from "./prompt/PromptEvents";
+import {EventBus} from "../event/EventBus";
 
 export class MapScene extends Scene {
     private _emitter!: EventEmitter;
@@ -10,6 +12,10 @@ export class MapScene extends Scene {
 
     constructor() {
         super("MapScene");
+    }
+
+    get emitter(): Phaser.Events.EventEmitter {
+        return this._emitter;
     }
 
     create(): void {
@@ -58,6 +64,9 @@ export class MapScene extends Scene {
             this.cameras.main.height / 2);
 
         this.cameras.main.startFollow(this._player);
+
+        EventBus.emitter.on(PromptEvents.PromptComplete, (text: string) => {
+        });
     }
 
     update(time: number, delta: number) {

@@ -1,4 +1,6 @@
 import {PromptView} from "./PromptView";
+import {PromptEvents} from "./PromptEvents";
+import {EventBus} from "../../event/EventBus";
 
 export class PromptPresenter {
     private _view: PromptView;
@@ -12,8 +14,10 @@ export class PromptPresenter {
 
         switch (key) {
             case "Enter":
-                console.log("command is", text.substring(2, text.length));
+                const sub = text.substring(2, text.length);
+                console.log("command is", sub);
                 this._view.displayPrompt("> ");
+                EventBus.emitter.emit(PromptEvents.PromptComplete, sub);
                 break;
             case "Backspace":
                 if(text.length > 2) {

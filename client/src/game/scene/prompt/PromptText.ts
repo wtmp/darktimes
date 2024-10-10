@@ -1,11 +1,11 @@
-import Phaser from "phaser";
+import Phaser, {Scene} from "phaser";
 import {PromptView} from "./PromptView";
 import {PromptPresenter} from "./PromptPresenter";
 
 export class PromptText extends Phaser.GameObjects.Text implements PromptView {
     private _presenter: PromptPresenter;
 
-    constructor(scene: Phaser.Scene) {
+    constructor(scene: Scene) {
         super(scene, 5, scene.game.canvas.height - 25, "> ", {});
 
         this._presenter = new PromptPresenter(this);
