@@ -1,8 +1,10 @@
 import {Scene} from "phaser";
 import {PromptText} from "./prompt/PromptText";
 import {PlayerSprite} from "./player/PlayerSprite";
+import EventEmitter = Phaser.Events.EventEmitter;
 
 export class MapScene extends Scene {
+    private _emitter!: EventEmitter;
     private _player!: PlayerSprite;
     private _prompt!: PromptText;
 
@@ -11,6 +13,8 @@ export class MapScene extends Scene {
     }
 
     create(): void {
+        this._emitter = new Phaser.Events.EventEmitter();
+
         this.add.text(50, 50, "DARK TIMES");
 
         // for(let y=0; y<13; y++) {

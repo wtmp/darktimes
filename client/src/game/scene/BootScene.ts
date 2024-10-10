@@ -15,9 +15,8 @@ export class BootScene extends Scene {
     }
 
     create() : void {
-
         this.add
-            .text(160, 200, "start game")
+            .text(this.game.canvas.width / 2, this.game.canvas.height / 2, "start game")
             .setInteractive()
             .on(Phaser.Input.Events.POINTER_DOWN, () => {
                 console.log("start game");

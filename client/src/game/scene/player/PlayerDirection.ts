@@ -4,13 +4,15 @@ export class PlayerDirection {
         const dy = y1 - (y + 16);
         const length = Math.sqrt(dx * dx + dy * dy);
 
-        if(length > 20) {
+        if(length > 5) {
             const radian = Math.atan2(y1 - (y + 16), x1 - (x + 16));
             const angle = radian * (180 / Math.PI);
 
             if (angle > -22 && angle < 22) {
                 return "6"
-            } else if (angle > 22 && angle < 67) {
+            }
+
+            if (angle > 22 && angle < 67) {
                 return "3"
             }
 

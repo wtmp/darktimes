@@ -68,12 +68,19 @@ export class PlayerSprite extends Sprite implements PlayerView {
     }
 
     displayPlayer(x: number, y: number): void {
-        this.setX(x);
-        this.setY(y);
+        if(x > 0) {
+            this.setX(x);
+        }
+
+        if(y > 0) {
+            this.setY(y);
+        }
     }
 
     update(time: number, delta: number) {
         var mouse = this.scene.input.mousePointer;
+
+        console.log(this.x, this.y);
 
         if(mouse.leftButtonReleased()) {
             this.setAngle(0);
