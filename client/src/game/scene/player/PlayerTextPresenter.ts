@@ -7,11 +7,15 @@ export class PlayerTextPresenter {
         this._view = view;
     }
 
-    onPromptSay(text: string): void {
-        this._view.displayText(text);
+    private _textArray: string[] = new Array<string>();
+
+    onPlayerSay(text: string): void {
+        this._textArray.push(text);
+        this._view.displayText(this._textArray);
 
         setTimeout(() => {
-            this._view.displayText("");
+            this._textArray.shift();
+            this._view.displayText(this._textArray);
         }, 5000);
     }
 }

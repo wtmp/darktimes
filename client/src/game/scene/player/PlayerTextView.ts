@@ -1,3 +1,3 @@
 export interface PlayerTextView {
-    displayText(text: string): void;
+    displayText(array: string[]): void;
 }
