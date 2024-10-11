@@ -1,7 +1,4 @@
 import {PlayerSpriteView} from "./PlayerSpriteView";
-import {EventBus} from "../../event/EventBus";
-import {PromptEvents} from "../prompt/PromptEvents";
-
 
 export class PlayerSpritePresenter {
     private _view: PlayerSpriteView;

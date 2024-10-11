@@ -18,6 +18,7 @@ export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextVie
         this.setOrigin(0, 0);
         this.setScrollFactor(0);
         this.setColor("#00FF00");
+        this.setFontStyle("bold");
 
         this._presenter = new PlayerTextPresenter(this);
 
