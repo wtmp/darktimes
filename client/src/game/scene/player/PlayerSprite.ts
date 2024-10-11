@@ -1,27 +1,25 @@
 import {PlayerSpriteView} from "./PlayerSpriteView";
 import Phaser from "phaser";
-import Sprite = Phaser.GameObjects.Sprite;
 import {PlayerSpritePresenter} from "./PlayerSpritePresenter";
-import {Simulate} from "react-dom/test-utils";
-import play = Simulate.play;
 import {PlayerSpriteAnimation} from "./PlayerSpriteAnimation";
 import {MoveDownAnimation} from "./animation/MoveDownAnimation";
 import {MoveUpAnimation} from "./animation/MoveUpAnimation";
 import {MoveSidewayAnimation} from "./animation/MoveSidewayAnimation";
 import {PlayerUtils} from "./PlayerUtils";
+import Sprite = Phaser.GameObjects.Sprite;
 
 export class PlayerSprite extends Sprite implements PlayerSpriteView {
     private _presenter: PlayerSpritePresenter;
     private _animations: PlayerSpriteAnimation[];
-    private _direction: PlayerUtils;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, x, y, "tiles", 2241);
+        super(scene, x, y,
+            "tiles",
+            2241);
 
         scene.add.existing(this);
 
         this._presenter = new PlayerSpritePresenter(this);
-        this._direction = new PlayerUtils();
 
         this._animations = [
             new MoveUpAnimation(scene),

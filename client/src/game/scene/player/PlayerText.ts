@@ -7,13 +7,15 @@ import {PromptEvents} from "../prompt/PromptEvents";
 export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextView {
     private _presenter: PlayerTextPresenter;
 
-    constructor(scene: Phaser.Scene, x: number, y: number) {
+    constructor(scene: Phaser.Scene) {
         super(scene, scene.game.canvas.width / 2,
-            (scene.game.canvas.height / 2), "", {wordWrap: {width: 200, useAdvancedWrap: true}});
+            (scene.game.canvas.height / 2),
+            "",
+            {wordWrap: {width: 200, useAdvancedWrap: true}});
 
         scene.add.existing(this);
 
-        this.setOrigin(0 , 0);
+        this.setOrigin(0, 0);
         this.setScrollFactor(0);
         this.setColor("#00FF00");
 

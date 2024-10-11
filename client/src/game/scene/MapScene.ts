@@ -1,13 +1,10 @@
-import Phaser, {Scene} from "phaser";
+import {Scene} from "phaser";
 import {PromptText} from "./prompt/PromptText";
 import {PlayerSprite} from "./player/PlayerSprite";
-import {PromptEvents} from "./prompt/PromptEvents";
-import {EventBus} from "../event/EventBus";
 import {PlayerText} from "./player/PlayerText";
 
 export class MapScene extends Scene {
     private _player!: PlayerSprite;
-    private _prompt!: PromptText;
 
     constructor() {
         super("MapScene");
@@ -19,12 +16,6 @@ export class MapScene extends Scene {
         if(this.input.mouse) {
             this.input.mouse.disableContextMenu();
         }
-
-        // for(let y=0; y<13; y++) {
-        //     for(let x = 0; x<13; x++) {
-        //         this.add.entity(x * 32, y * 32, "tiles", start + 32).setOrigin(0, 0).scale = 2;
-        //     }
-        // }
 
         let tilesMap = [
             1730, 23 * 116 + 70, 0, 0, 3, 3,
@@ -55,10 +46,10 @@ export class MapScene extends Scene {
             }
         }
 
-        this._prompt = new PromptText(this);
-        this._player = new PlayerSprite(this, 0, 0);
+        new PromptText(this);
 
-        new PlayerText(this, 0, 0);
+        this._player = new PlayerSprite(this, 0, 0);
+        new PlayerText(this);
 
         this.cameras.main.startFollow(this._player);
     }
