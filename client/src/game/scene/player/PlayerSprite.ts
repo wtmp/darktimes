@@ -82,11 +82,11 @@ export class PlayerSprite extends Sprite implements PlayerSpriteView {
 
         console.log(this.x, this.y);
 
-        if(mouse.leftButtonReleased()) {
+        if(mouse.rightButtonReleased()) {
             this.setAngle(0);
         }
 
-        if(mouse.leftButtonDown()) {
+        if(mouse.rightButtonDown()) {
             const direction = PlayerUtils.detectDirection(this.scene.cameras.main.width / 2,
                 this.scene.cameras.main.height / 2,
                 mouse.x,

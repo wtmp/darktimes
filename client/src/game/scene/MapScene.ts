@@ -16,6 +16,10 @@ export class MapScene extends Scene {
     create(): void {
         this.add.text(50, 50, "DARK TIMES");
 
+        if(this.input.mouse) {
+            this.input.mouse.disableContextMenu();
+        }
+
         // for(let y=0; y<13; y++) {
         //     for(let x = 0; x<13; x++) {
         //         this.add.entity(x * 32, y * 32, "tiles", start + 32).setOrigin(0, 0).scale = 2;

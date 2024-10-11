@@ -9,12 +9,13 @@ export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextVie
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, scene.game.canvas.width / 2,
-            (scene.game.canvas.height / 2), "", {});
+            (scene.game.canvas.height / 2), "", {wordWrap: {width: 200, useAdvancedWrap: true}});
 
         scene.add.existing(this);
 
         this.setOrigin(0 , 0);
         this.setScrollFactor(0);
+        this.setColor("#00FF00");
 
         this._presenter = new PlayerTextPresenter(this);
 
@@ -24,7 +25,7 @@ export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextVie
     }
 
     displayText(array: string[]): void {
-        this.setY((this.scene.game.canvas.height / 2) - 15 * array.length);
         this.text = array.join("\n");
+        this.setY((this.scene.game.canvas.height / 2) - this.height);
     }
 }
