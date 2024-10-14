@@ -3,10 +3,14 @@ import {Player} from "../player/Player";
 import {MovementView} from "../player/MovementView";
 import {Direction} from "../player/Direction";
 import {MovementPresenter} from "../player/MovementPresenter";
+import {Compass} from "../player/Compass";
+import {CompassPresenter} from "../player/CompassPresenter";
+import { Movement } from "../player/Movement";
 
 export class Control extends Phaser.Scene implements MovementView {
     private _player = new Player();
-    private _movementPresenter: MovementPresenter = new MovementPresenter(this);
+    private _movement: Movement = new MovementPresenter(this);
+    private _compass: Compass = new CompassPresenter();
 
     private  _centerX: number = 0;
     private  _centerY: number = 0;
@@ -86,11 +90,12 @@ export class Control extends Phaser.Scene implements MovementView {
     update(): void {
         if(this.input.mousePointer) {
             if(this.input.mousePointer.rightButtonDown()) {
-                this._movementPresenter.move(this._centerX + 16,
-                    this._centerY + 16,
-                    this.input.mousePointer.x,
-                    this.input.mousePointer.y
-                );
+                let dx = this.input.mousePointer.x - (this._centerX + 16);
+                let dy = this.input.mousePointer.y - (this._centerY + 16);
+
+                let direction = this._compass.getCardinalDirection(dx, dy);
+
+                this._movement.move(direction, 1);
             }
         }
     }

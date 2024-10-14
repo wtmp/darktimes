@@ -1,17 +1,16 @@
 import {MovementView} from "./MovementView";
-import {Compass} from "./Compass";
+import {CompassPresenter} from "./CompassPresenter";
+import {Movement} from "./Movement";
+import {Direction} from "./Direction";
 
-export class MovementPresenter {
+export class MovementPresenter implements Movement  {
     private _view: MovementView;
-    private _compass: Compass = new Compass();
 
     constructor(view: MovementView) {
         this._view = view;
     }
 
-    move(sourceX: number, sourceY: number, targetX: number, targetY: number) {
-        this._compass.setSource(sourceX, sourceY);
-        this._compass.setTarget(targetX, targetY);
-        this._view.displayMovement(this._compass.getCardinalDirection());
+    move(direction: Direction, speed: number): void {
+        this._view.displayMovement(direction);
     }
 }
