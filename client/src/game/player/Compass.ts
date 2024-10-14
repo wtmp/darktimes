@@ -7,13 +7,13 @@ export class Compass {
     private _targetY: number = 0;
 
     setSource(x: number, y: number): void {
-        this._targetX = x;
-        this._targetY = y;
+        this._sourceX = x;
+        this._sourceY = y;
     }
 
     setTarget(x: number, y: number): void {
-        this._sourceX = x;
-        this._sourceY = y;
+        this._targetX = x;
+        this._targetY = y;
     }
 
     getCardinalDirection(): Direction {
@@ -23,6 +23,8 @@ export class Compass {
         const radian = Math.atan2(dy, dx);
         const length = Math.sqrt(dx * dx + dy * dy);
         const angle = radian * (180 / Math.PI);
+
+        console.log(length);
 
         if(length > 5) {
             if (angle > -22 && angle < 22) {

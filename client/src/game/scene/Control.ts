@@ -62,7 +62,7 @@ export class Control extends Phaser.Scene implements MovementView {
         const player =
             this.children.getByName("player") as Phaser.GameObjects.Sprite;
 
-        this.cameras.main.startFollow(player);
+        //this.cameras.main.startFollow(player);
     }
 
     create(): void {
@@ -106,29 +106,37 @@ export class Control extends Phaser.Scene implements MovementView {
         switch (direction) {
             case Direction.E:
                 player.play("player-move-sideway", true)
-                    .setFlipX(false);
+                    .setFlipX(false)
+                    .setAngle(0);
                 break;
             case Direction.W:
                 player.play("player-move-sideway", true)
-                    .setFlipX(true);
+                    .setFlipX(true)
+                    .setAngle(0);
                 break;
             case Direction.N:
-                player.play("player-move-up", true);
+                player.play("player-move-up", true)
+                    .setAngle(0);
                 break;
             case Direction.S:
-                player.play("player-move-down", true);
+                player.play("player-move-down", true)
+                    .setAngle(0);
                 break;
             case Direction.SW:
-                player.play("player-move-down", true).setAngle(-7);
+                player.play("player-move-down", true)
+                    .setAngle(-7);
                 break;
             case Direction.SE:
-                player.play("player-move-down", true).setAngle(7);
+                player.play("player-move-down", true)
+                    .setAngle(7);
                 break;
             case Direction.NW:
-                player.play("player-move-up", true).setAngle(-7);
+                player.play("player-move-up", true)
+                    .setAngle(-7);
                 break;
             case Direction.NE:
-                player.play("player-move-up", true).setAngle(7);
+                player.play("player-move-up", true)
+                    .setAngle(7);
                 break;
         }
     }
