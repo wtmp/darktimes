@@ -1,11 +1,11 @@
 export class PlayerUtils {
-    static detectDirection(x: number, y: number, x1: number, y1: number): string {
-        const dx = x1 - (x + 16);
-        const dy = y1 - (y + 16);
+    static detectDirection(sourceX: number, sourceY: number, targetX: number, targetY: number): string {
+        const dx = targetX - (sourceX + 16);
+        const dy = targetY - (sourceY + 16);
         const length = Math.sqrt(dx * dx + dy * dy);
 
         if(length > 5) {
-            const radian = Math.atan2(y1 - (y + 16), x1 - (x + 16));
+            const radian = Math.atan2(targetY - (sourceY + 16), targetX - (sourceX + 16));
             const angle = radian * (180 / Math.PI);
 
             if (angle > -22 && angle < 22) {

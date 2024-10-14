@@ -1,15 +1,13 @@
-import {ServerPublisher} from "./server/ServerPublisher";
-
 export class GameServerConnect {
     private _url: string;
     private _webSocket: WebSocket | undefined;
     private _isStopped: boolean;
-    private _publisher: ServerPublisher | undefined;
+    //private _publisher: ServerPublisher | undefined;
 
-    constructor(url: string, publisher: ServerPublisher) {
+    constructor(url: string) {
         this._url = url;
         this._isStopped = false;
-        this._publisher = publisher;
+        //this._publisher = publisher;
     }
 
     private onOpen = (ev : Event) => {
@@ -33,9 +31,9 @@ export class GameServerConnect {
     }
 
     private onMessage = (ev:MessageEvent) => {
-        if(this._publisher) {
-            this._publisher.notify("huy", "pezda");
-        }
+        // if(this._publisher) {
+        //     this._publisher.notify("huy", "pezda");
+        // }
     }
 
     open(timeout: number) : void {

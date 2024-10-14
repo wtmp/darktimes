@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import * as Phaser from "phaser";
 import {MapScene} from "../../game/scene/MapScene";
-import {BootScene} from "../../game/scene/BootScene";
+import {Boot} from "../../game/scene/Boot";
 import {Game} from "phaser";
 import {GameEntrypoint} from "../../game/GameEntrypoint";
 

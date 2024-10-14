@@ -1,7 +1,8 @@
-export enum Directions {
-    SE  = 1,
+export enum Direction {
+    CENTER = 0,
+    SW  = 1,
     S   = 2,
-    SW  = 3,
+    SE  = 3,
     W   = 4,
     E   = 6,
     NW  = 7,

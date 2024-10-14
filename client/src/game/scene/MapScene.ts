@@ -2,9 +2,14 @@ import {Scene} from "phaser";
 import {PromptText} from "./prompt/PromptText";
 import {PlayerSprite} from "./player/PlayerSprite";
 import {PlayerText} from "./player/PlayerText";
+import {Movement} from "./player/movement/Movement";
+import {PlayerUtils} from "./player/PlayerUtils";
+import {MovementAnimation} from "./player/movement/MovementAnimation";
 
 export class MapScene extends Scene {
     private _player!: PlayerSprite;
+    private _movement!: Movement;
+    private _movementAnimation!: MovementAnimation;
 
     constructor() {
         super("MapScene");
@@ -46,10 +51,12 @@ export class MapScene extends Scene {
             }
         }
 
-        new PromptText(this);
-
         this._player = new PlayerSprite(this, 0, 0);
+
+        new PromptText(this);
         new PlayerText(this);
+
+        this._movement = new Movement(this._player);
 
         this.cameras.main.startFollow(this._player);
     }
@@ -57,6 +64,20 @@ export class MapScene extends Scene {
     update(time: number, delta: number) {
         super.update(time, delta);
 
-        this._player.update(time, delta);
+        const mouse = this.input.mousePointer;
+
+        if(mouse.rightButtonReleased()) {
+            // this._movementAnimation.stop();
+        }
+
+        if(mouse.rightButtonDown()) {
+            const centerX = this.cameras.main.width / 2;
+            const centerY = this.cameras.main.height / 2;
+
+            const direction = PlayerUtils.detectDirection(centerX, centerY, mouse.x, mouse.y);
+
+            this._movement.onMovement(direction);
+            this._movementAnimation.onMovement(direction);
+        }
     }
 }

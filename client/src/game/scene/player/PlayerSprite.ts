@@ -1,6 +1,7 @@
 import {PlayerSpriteView} from "./PlayerSpriteView";
 import Phaser from "phaser";
 import {PlayerSpritePresenter} from "./PlayerSpritePresenter";
+import {Simulate} from "react-dom/test-utils";
 import {PlayerSpriteAnimation} from "./PlayerSpriteAnimation";
 import {MoveDownAnimation} from "./animation/MoveDownAnimation";
 import {MoveUpAnimation} from "./animation/MoveUpAnimation";
@@ -11,15 +12,15 @@ import Sprite = Phaser.GameObjects.Sprite;
 export class PlayerSprite extends Sprite implements PlayerSpriteView {
     private _presenter: PlayerSpritePresenter;
     private _animations: PlayerSpriteAnimation[];
+    private _direction: PlayerUtils;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, x, y,
-            "tiles",
-            2241);
+        super(scene, x, y, "tiles", 2241);
 
         scene.add.existing(this);
 
         this._presenter = new PlayerSpritePresenter(this);
+        this._direction = new PlayerUtils();
 
         this._animations = [
             new MoveUpAnimation(scene),
@@ -80,17 +81,17 @@ export class PlayerSprite extends Sprite implements PlayerSpriteView {
 
         console.log(this.x, this.y);
 
-        if(mouse.rightButtonReleased()) {
+        if(mouse.leftButtonReleased()) {
             this.setAngle(0);
         }
 
-        if(mouse.rightButtonDown()) {
+        if(mouse.leftButtonDown()) {
             const direction = PlayerUtils.detectDirection(this.scene.cameras.main.width / 2,
                 this.scene.cameras.main.height / 2,
                 mouse.x,
                 mouse.y);
 
-            this._presenter.moveTo(this.x, this.y, direction);
+            // this._presenter.moveTo(this.x, this.y, direction);
         }
     }
 }

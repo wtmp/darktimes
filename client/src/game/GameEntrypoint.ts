@@ -1,6 +1,7 @@
 import Phaser, {Game} from "phaser";
-import {BootScene} from "./scene/BootScene";
+import {Boot} from "./scene/Boot";
 import {MapScene} from "./scene/MapScene";
+import {Control} from "./scene/Control";
 
 export class GameEntrypoint extends Game {
     constructor(parent: string) {
@@ -12,8 +13,9 @@ export class GameEntrypoint extends Game {
                 pixelArt: true,
                 parent: parent,
                 scene: [
-                    BootScene,
-                    MapScene
+                    Boot,
+                    MapScene,
+                    Control
                 ]
             }
         );

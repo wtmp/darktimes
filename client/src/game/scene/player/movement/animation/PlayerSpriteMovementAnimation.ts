@@ -1,5 +1,5 @@
 import {PlayerSpriteMovementAnimationView} from "./PlayerSpriteMovementAnimationView";
-import {PlayerSprite} from "../PlayerSprite";
+import {PlayerSprite} from "../../PlayerSprite";
 import {PlayerSpriteMovementAnimationPresenter} from "./PlayerSpriteMovementAnimationPresenter";
 
 export class PlayerSpriteMovementAnimation implements PlayerSpriteMovementAnimationView {

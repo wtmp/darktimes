@@ -1,3 +1,3 @@
-export interface PlayerTalk {
+export interface Talk {
     talk(text: string): void;
 }

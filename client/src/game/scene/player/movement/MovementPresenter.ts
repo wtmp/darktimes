@@ -1,9 +1,9 @@
-import {SpriteMovementView} from "./SpriteMovementView";
+import {MovementView} from "./MovementView";
 
-export class SpriteMovementPresenter {
-    private _view: SpriteMovementView;
+export class MovementPresenter {
+    private _view: MovementView;
 
-    constructor(view: SpriteMovementView) {
+    constructor(view: MovementView) {
         this._view = view;
     }
 

@@ -1,8 +1,4 @@
-import {SpriteFactoryManager} from "./scene/SpriteFactoryManager";
-
-export class GameFactoryInitializer {
+export class GameInitializer {
     preload(): void {
-        const spriteFactories = new SpriteFactoryManager();
-        spriteFactories.registerFactory("player", )
     }
 }

@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import {PlayerTextView} from "./PlayerTextView";
 import {PlayerTextPresenter} from "./PlayerTextPresenter";
-import {EventBus} from "../../event/EventBus";
+import {EventBus} from "../../EventBus";
 import {PromptEvents} from "../prompt/PromptEvents";
 
 export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextView {

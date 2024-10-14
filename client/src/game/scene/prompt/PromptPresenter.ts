@@ -1,6 +1,6 @@
 import {PromptView} from "./PromptView";
 import {PromptEvents} from "./PromptEvents";
-import {EventBus} from "../../event/EventBus";
+import {EventBus} from "../../EventBus";
 
 export class PromptPresenter {
     private _view: PromptView;

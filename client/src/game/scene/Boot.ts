@@ -1,13 +1,13 @@
 import {Scene} from "phaser";
 
-export class BootScene extends Scene {
+export class Boot extends Scene {
 
     constructor() {
-        super("BootScene");
+        super("Boot");
     }
 
     preload() : void {
-        this.load.spritesheet("tiles", "./assets/blowharder.png", {
+        this.load.spritesheet("objects", "./assets/blowharder.png", {
                 frameWidth: 16,
                 frameHeight: 16
             }
@@ -15,17 +15,6 @@ export class BootScene extends Scene {
     }
 
     create() : void {
-        // this.add
-        //     .text(this.game.canvas.width / 2, this.game.canvas.height / 2, "start game")
-        //     .setInteractive()
-        //     .setAlign("justify")
-        //     .on(Phaser.Input.Events.POINTER_DOWN, () => {
-        //         console.log("start game");
-        //         this.scene.start("MapScene");
-        // });
-
-        this.scene.start("MapScene");
-
-        console.log("boot complete");
+        this.scene.start("Control");
     }
 }
