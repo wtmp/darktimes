@@ -1,6 +1,5 @@
 import {MovementView} from "./MovementView";
 import {Compass} from "./Compass";
-import {PlayerUtils} from "../scene/player/PlayerUtils";
 
 export class MovementPresenter {
     private _view: MovementView;

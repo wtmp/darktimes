@@ -86,13 +86,11 @@ export class Control extends Phaser.Scene implements MovementView {
     update(): void {
         if(this.input.mousePointer) {
             if(this.input.mousePointer.rightButtonDown()) {
-                this._movementPresenter.move(this._centerX,
-                    this._centerY,
+                this._movementPresenter.move(this._centerX + 16,
+                    this._centerY + 16,
                     this.input.mousePointer.x,
                     this.input.mousePointer.y
                 );
-            }
-            if(this.input.mousePointer.rightButtonReleased()) {
             }
         }
     }
