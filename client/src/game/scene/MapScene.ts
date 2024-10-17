@@ -5,6 +5,8 @@ import {PlayerText} from "./player/PlayerText";
 import {Movement} from "./player/movement/Movement";
 import {PlayerUtils} from "./player/PlayerUtils";
 import {MovementAnimation} from "./player/movement/MovementAnimation";
+import Tile = Phaser.Tilemaps.Tile;
+import TilemapLayer = Phaser.Tilemaps.TilemapLayer;
 
 export class MapScene extends Scene {
     private _player!: PlayerSprite;
@@ -30,33 +32,39 @@ export class MapScene extends Scene {
             0, 0, 0, 0, 2
         ];
 
+        this.add.tilemap();
+
         const map = this.make.tilemap({
-            width: 5,
-            height: 5,
+            width: 800,
+            height: 600,
             tileWidth: 16,
             tileHeight: 16
         });
 
-        const tileset = map.addTilesetImage("tiles");
+        const tileset = map.addTilesetImage("objects");
 
         const layer = map.createBlankLayer("Background", tileset!);
+
+        if(layer) {
+            layer.randomize(0, 0, 800, 600, [778, 778, 778, 778, 779, 1011, 1014]);
+        }
 
         if (layer) {
             layer.setScale(2);
         }
-
-        for (let y = 0; y < 5; y++) {
-            for (let x = 0; x < 5; x++) {
-                map.putTileAt(tilesMap[Math.floor(Math.random() * 5) * 5 + Math.floor(Math.random() * 5)], x, y, false, layer!);
-            }
-        }
+        //
+        // for (let y = 0; y < 5; y++) {
+        //     for (let x = 0; x < 5; x++) {
+        //         map.putTileAt(tilesMap[Math.floor(Math.random() * 5) * 5 + Math.floor(Math.random() * 5)], x, y, false, layer!);
+        //     }
+        // }
 
         this._player = new PlayerSprite(this, 0, 0);
-
-        new PromptText(this);
-        new PlayerText(this);
-
-        this._movement = new Movement(this._player);
+        //
+        // new PromptText(this);
+        // new PlayerText(this);
+        //
+        // this._movement = new Movement(this._player);
 
         this.cameras.main.startFollow(this._player);
     }

@@ -1,16 +1,9 @@
 import Phaser from "phaser";
-import {Player} from "../player/Player";
-import {MovementView} from "../player/MovementView";
 import {Direction} from "../player/Direction";
-import {MovementPresenter} from "../player/MovementPresenter";
 import {Compass} from "../player/Compass";
-import {CompassPresenter} from "../player/CompassPresenter";
-import { Movement } from "../player/Movement";
 
-export class Control extends Phaser.Scene implements MovementView {
-    private _player = new Player();
-    private _movement: Movement = new MovementPresenter(this);
-    private _compass: Compass = new CompassPresenter();
+export class Control extends Phaser.Scene {
+    private _compass: Compass = new Compass();
 
     private  _centerX: number = 0;
     private  _centerY: number = 0;
@@ -23,8 +16,33 @@ export class Control extends Phaser.Scene implements MovementView {
         this._centerX = this.game.canvas.width / 2;
         this._centerY = this.game.canvas.height / 2;
 
-        this.add.text(10,10, "> ")
+        let map = this.make.tilemap({
+            width: 800,
+            height: 600,
+            tileHeight: 16,
+            tileWidth: 16
+        });
+
+        let tileset = map.addTilesetImage("objects");
+
+        const layer = map.createBlankLayer("Background", tileset!);
+
+        if(layer) {
+            layer.randomize(0, 0, 800, 600,
+                [761, 761, 761, 761, 1345, 994, 878, 997, 997,
+                    880, 764, 881, 881, 1577, 1691, 1693, 1461]);
+        }
+
+        if (layer) {
+            layer.setScale(2);
+        }
+
+        layer?.putTileAt(762, 0, 0, false);
+
+        this.add.text(10,10, "Console> ")
             .setName("prompt")
+            .setFontFamily("Helvetica")
+            .setBackgroundColor("#000000")
             .setOrigin(0, 0)
             .setScrollFactor(0);
 
@@ -66,12 +84,16 @@ export class Control extends Phaser.Scene implements MovementView {
         const player =
             this.children.getByName("player") as Phaser.GameObjects.Sprite;
 
+        this.cameras.main.startFollow(player);
+        // this.add.text(100, 100, "Helvetica", {fontFamily: "Helvetica", fontSize: 28});
+        // this.add.text(100, 150, "Times New Roman", {fontFamily: "Times New Roman", fontSize: 28});
+        // this.add.text(100, 200, "Verdana", {fontFamily: "Verdana", fontSize: 28});
+        // this.add.text(100, 250, "Palatino", {fontFamily: "Palatino", fontSize: 28});
+
         //this.cameras.main.startFollow(player);
     }
 
     create(): void {
-        this.displayMovement(Direction.SW);
-
         if(this.input.mouse) {
             this.input.mouse.disableContextMenu();
         } else {
@@ -95,51 +117,61 @@ export class Control extends Phaser.Scene implements MovementView {
 
                 let direction = this._compass.getCardinalDirection(dx, dy);
 
-                this._movement.move(direction, 1);
+                this.displayMovement(direction, 1);
             }
         }
     }
 
-    displayMovement(direction: Direction): void {
+    displayMovement(direction: Direction, speed: number): void {
         const player =
             this.children.getByName("player") as Phaser.GameObjects.Sprite;
-
-        console.log(direction);
 
         switch (direction) {
             case Direction.E:
                 player.play("player-move-sideway", true)
                     .setFlipX(false)
                     .setAngle(0);
+                player.setX(player.x + 1);
                 break;
             case Direction.W:
                 player.play("player-move-sideway", true)
                     .setFlipX(true)
                     .setAngle(0);
+                player.setX(player.x - 1);
                 break;
             case Direction.N:
                 player.play("player-move-up", true)
                     .setAngle(0);
+                player.setY(player.y - 1);
                 break;
             case Direction.S:
                 player.play("player-move-down", true)
                     .setAngle(0);
+                player.setY(player.y + 1);
                 break;
             case Direction.SW:
                 player.play("player-move-down", true)
                     .setAngle(-7);
+                player.setX(player.x - 1);
+                player.setY(player.y + 1);
                 break;
             case Direction.SE:
                 player.play("player-move-down", true)
                     .setAngle(7);
+                player.setX(player.x + 1);
+                player.setY(player.y + 1);
                 break;
             case Direction.NW:
                 player.play("player-move-up", true)
                     .setAngle(-7);
+                player.setX(player.x - 1);
+                player.setY(player.y - 1);
                 break;
             case Direction.NE:
                 player.play("player-move-up", true)
                     .setAngle(7);
+                player.setX(player.x + 1);
+                player.setY(player.y - 1);
                 break;
         }
     }

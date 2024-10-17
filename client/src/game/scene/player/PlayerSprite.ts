@@ -15,7 +15,7 @@ export class PlayerSprite extends Sprite implements PlayerSpriteView {
     private _direction: PlayerUtils;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, x, y, "tiles", 2241);
+        super(scene, x, y, "objects", 2241);
 
         scene.add.existing(this);
 
