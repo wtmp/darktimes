@@ -12,9 +12,11 @@ export namespace PlayerContract {
         displayPlayer(x: number, y: number): void;
         displayPlayerMove(dx: number, dy: number): void;
         displayPlayerMoveAnimation(direction: Direction): void;
+        displayPlayerName(name: string): void;
     }
 
     export interface PlayerPresenter {
-        onRightClick(direction: Direction): void;
+        onMovement(direction: Direction): void;
+        onPlayerClick(): void;
     }
 }

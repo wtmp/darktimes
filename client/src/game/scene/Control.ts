@@ -3,6 +3,7 @@ import { Compass } from "../Compass";
 import { Direction } from "../Direction";
 import {PlayerContract} from "../module/player/PlayerContract";
 import {PlayerPresenter} from "../module/player/PlayerPresenter";
+import GameObject = Phaser.GameObjects.GameObject;
 
 export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
     private _compass: Compass = new Compass();
@@ -48,6 +49,12 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
             .setScale(2)
             .setOrigin(0, 0);
 
+        let playerName = this.add.text(this.cameras.main.width / 2 + 16,
+            this.cameras.main.height / 2 - 16, "", {})
+            .setName("playerName")
+            .setOrigin(0.5, 0.5)
+            .setScrollFactor(0);
+
         this.anims.create({
             key: "player-move-down",
             frames: this.anims.generateFrameNumbers(
@@ -66,7 +73,7 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
             ),
             frameRate: 10,
             repeat: 0
-        });
+        })
 
         this.anims.create({
             key: "player-move-sideway",
@@ -78,7 +85,7 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
             repeat: 0
         });
 
-        this._playerPresenter.onRightClick(Direction.CENTER);
+        this._playerPresenter.onMovement(Direction.CENTER);
 
         this.cameras.main.startFollow(playerSprite);
     }
@@ -109,7 +116,7 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
 
                 let direction = this._compass.getCardinalDirection(dx, dy);
 
-                this._playerPresenter.onRightClick(direction);
+                this._playerPresenter.onMovement(direction);
             }
         }
     }
@@ -168,5 +175,11 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
                     .setAngle(7);
                 break;
         }
+    }
+
+    displayPlayerName(name: string): void {
+        const playerName =
+            this.children.getByName("playerName") as Phaser.GameObjects.Text;
+        playerName.setText(name);
     }
 }

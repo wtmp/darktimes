@@ -9,49 +9,38 @@ export class PlayerPresenter implements PlayerContract.PlayerPresenter {
 
     constructor(view: PlayerContract.PlayerView) {
         this._view = view;
-        this._model = new PlayerModel(new Player(32 * 100, 32 * 100));
+        this._model = new PlayerModel(new Player(0, 0));
     }
 
-    onRightClick(direction: Direction): void {
+    onMovement(direction: Direction): void {
         let x = this._model.getPlayerX();
         let y = this._model.getPlayerY();
 
-        this._view.displayPlayer(x, y);
-        this._view.displayPlayerMoveAnimation(direction);
+        let dx = 0;
+        let dy = 0;
 
         switch(direction) {
-            case Direction.N:
-                this._model.movePlayer(0, -1);
-                this._view.displayPlayerMove(0, -1);
-                break;
-            case Direction.S:
-                this._model.movePlayer(0, 1);
-                this._view.displayPlayerMove(0, 1);
-                break;
-            case Direction.E:
-                this._model.movePlayer(1, 0);
-                this._view.displayPlayerMove(1, 0);
-                break;
-            case Direction.W:
-                this._model.movePlayer(-1, 0);
-                this._view.displayPlayerMove(-1, 0);
-                break;
-            case Direction.NE:
-                this._model.movePlayer(1, -1);
-                this._view.displayPlayerMove(1, -1);
-                break;
-            case Direction.NW:
-                this._model.movePlayer(-1, -1);
-                this._view.displayPlayerMove(-1, -1);
-                break;
-            case Direction.SE:
-                this._model.movePlayer(1, 1);
-                this._view.displayPlayerMove(1, 1);
-                break;
-            case Direction.SW:
-                this._model.movePlayer(-1, 1);
-                this._view.displayPlayerMove(-1, 1);
-                break;
+            case Direction.N:  dx = 0;  dy = -1; break;
+            case Direction.S:  dx = 0;  dy = 1;  break;
+            case Direction.E:  dx = 1;  dy = 0;  break;
+            case Direction.W:  dx = -1; dy = 0;  break;
+            case Direction.NE: dx = 1;  dy = -1; break;
+            case Direction.NW: dx = -1; dy = -1; break;
+            case Direction.SE: dx = 1;  dy = 1;  break;
+            case Direction.SW: dx = -1; dy = 1;  break;
         }
+
+        this._model.movePlayer(dx, dy);
+
+        this._view.displayPlayer(x, y);
+        this._view.displayPlayerMoveAnimation(direction);
+        this._view.displayPlayerMove(dx, dy);
+
+        console.log(Math.round(this._model.getPlayerX() / 32),
+            Math.round(this._model.getPlayerY() / 32));
+    }
+
+    onPlayerClick(): void {
+        this._view.displayPlayerName(this._model.getPlayerName());
     }
 }
