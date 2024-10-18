@@ -1,8 +1,8 @@
 import {Player} from "./Player";
 import {PlayerMovement} from "./PlayerMovement";
-import {Contract} from "./Contract";
+import {PlayerContract} from "./PlayerContract";
 
-export class PlayerModel implements Contract.PlayerModel {
+export class PlayerModel implements PlayerContract.PlayerModel {
     private _player: Player;
     private _movement: PlayerMovement;
 

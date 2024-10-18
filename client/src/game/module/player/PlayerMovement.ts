@@ -8,7 +8,7 @@ export class PlayerMovement {
     }
 
     movePlayer(dx: number, dy: number): void {
-        this._player.x = this._player.x + dx;
-        this._player.y = this._player.y + dy;
+        this._player.x += dx;
+        this._player.y += dy;
     }
 }

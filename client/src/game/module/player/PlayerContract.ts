@@ -1,6 +1,6 @@
 import {Direction} from "./Direction";
 
-export namespace Contract {
+export namespace PlayerContract {
     export interface PlayerModel {
         getPlayerX(): number;
         getPlayerY(): number;

@@ -1,16 +1,16 @@
 import Phaser from "phaser";
 import { Compass } from "../module/player/Compass";
-import { Contract } from "../module/player/Contract";
+import { PlayerContract } from "../module/player/PlayerContract";
 import {Direction} from "../module/player/Direction";
 import {PlayerPresenter} from "../module/player/PlayerPresenter";
 
-export class Control extends Phaser.Scene implements Contract.PlayerView {
+export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
     private _compass: Compass = new Compass();
 
     private  _centerX: number = 0;
     private  _centerY: number = 0;
 
-    private _playerPresenter: Contract.PlayerPresenter = new PlayerPresenter(this);
+    private _playerPresenter: PlayerContract.PlayerPresenter = new PlayerPresenter(this);
 
     constructor() {
         super("Control");

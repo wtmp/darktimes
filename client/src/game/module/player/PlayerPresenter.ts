@@ -1,13 +1,13 @@
 import {PlayerModel} from "./PlayerModel";
 import {Direction} from "./Direction";
-import { Contract } from "./Contract";
+import { PlayerContract } from "./PlayerContract";
 import { Player } from "./Player";
 
-export class PlayerPresenter implements Contract.PlayerPresenter {
-    private _view: Contract.PlayerView;
+export class PlayerPresenter implements PlayerContract.PlayerPresenter {
+    private _view: PlayerContract.PlayerView;
     private _model: PlayerModel;
 
-    constructor(view: Contract.PlayerView) {
+    constructor(view: PlayerContract.PlayerView) {
         this._view = view;
         this._model = new PlayerModel(new Player(32*100, 32*100));
     }
