@@ -1,12 +1,16 @@
 import Phaser from "phaser";
-import {Direction} from "../player/Direction";
-import {Compass} from "../player/Compass";
+import { Compass } from "../module/player/Compass";
+import { Contract } from "../module/player/Contract";
+import {Direction} from "../module/player/Direction";
+import {PlayerPresenter} from "../module/player/PlayerPresenter";
 
-export class Control extends Phaser.Scene {
+export class Control extends Phaser.Scene implements Contract.PlayerView {
     private _compass: Compass = new Compass();
 
     private  _centerX: number = 0;
     private  _centerY: number = 0;
+
+    private _playerPresenter: Contract.PlayerPresenter = new PlayerPresenter(this);
 
     constructor() {
         super("Control");
@@ -94,6 +98,8 @@ export class Control extends Phaser.Scene {
     }
 
     create(): void {
+        this.input.setDefaultCursor("default");
+
         if(this.input.mouse) {
             this.input.mouse.disableContextMenu();
         } else {
@@ -117,12 +123,26 @@ export class Control extends Phaser.Scene {
 
                 let direction = this._compass.getCardinalDirection(dx, dy);
 
-                this.displayMovement(direction, 1);
+                this._playerPresenter.onRightClick(direction);
             }
         }
     }
 
-    displayMovement(direction: Direction, speed: number): void {
+    displayPlayer(x: number, y: number): void {
+        const player =
+            this.children.getByName("player") as Phaser.GameObjects.Sprite;
+        player.setX(x);
+        player.setY(y);
+    }
+
+    displayPlayerMove(dx: number, dy: number): void {
+        const player =
+            this.children.getByName("player") as Phaser.GameObjects.Sprite;
+        player.setX(player.x + dx);
+        player.setY(player.y + dy);
+    }
+
+    displayPlayerMoveAnimation(direction: Direction): void {
         const player =
             this.children.getByName("player") as Phaser.GameObjects.Sprite;
 
@@ -131,47 +151,35 @@ export class Control extends Phaser.Scene {
                 player.play("player-move-sideway", true)
                     .setFlipX(false)
                     .setAngle(0);
-                player.setX(player.x + 1);
                 break;
             case Direction.W:
                 player.play("player-move-sideway", true)
                     .setFlipX(true)
                     .setAngle(0);
-                player.setX(player.x - 1);
                 break;
             case Direction.N:
                 player.play("player-move-up", true)
                     .setAngle(0);
-                player.setY(player.y - 1);
                 break;
             case Direction.S:
                 player.play("player-move-down", true)
                     .setAngle(0);
-                player.setY(player.y + 1);
                 break;
             case Direction.SW:
                 player.play("player-move-down", true)
                     .setAngle(-7);
-                player.setX(player.x - 1);
-                player.setY(player.y + 1);
                 break;
             case Direction.SE:
                 player.play("player-move-down", true)
                     .setAngle(7);
-                player.setX(player.x + 1);
-                player.setY(player.y + 1);
                 break;
             case Direction.NW:
                 player.play("player-move-up", true)
                     .setAngle(-7);
-                player.setX(player.x - 1);
-                player.setY(player.y - 1);
                 break;
             case Direction.NE:
                 player.play("player-move-up", true)
                     .setAngle(7);
-                player.setX(player.x + 1);
-                player.setY(player.y - 1);
                 break;
         }
     }
