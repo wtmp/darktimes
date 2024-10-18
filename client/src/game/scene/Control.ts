@@ -18,18 +18,6 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView,
         super("Control");
     }
 
-    displayPrompt(text: string): void {
-        const con =
-            this.children.getByName("console") as Phaser.GameObjects.Text;
-        con.setText(text);
-    }
-
-    displayPromptText(text: string): void {
-        const con =
-            this.children.getByName("console") as Phaser.GameObjects.Text;
-        con.setText(con.text + text);
-    }
-
     preload(): void {
         let map = this.make.tilemap({
             width: 800,
@@ -202,4 +190,15 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView,
         playerName.setText(name);
     }
 
+    displayPrompt(text: string): void {
+        const con =
+            this.children.getByName("console") as Phaser.GameObjects.Text;
+        con.setText(text);
+    }
+
+    displayPromptText(text: string): void {
+        const con =
+            this.children.getByName("console") as Phaser.GameObjects.Text;
+        con.setText(con.text + text);
+    }
 }

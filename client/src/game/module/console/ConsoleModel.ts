@@ -2,7 +2,7 @@ import {ConsoleContract} from "./ConsoleContract";
 import {Console} from "./Console";
 
 export class ConsoleModel implements ConsoleContract.ConsoleModel {
-    private _prompt: Console = new Console("Console_> ", "");
+    private _prompt: Console = new Console("Console> ", "");
 
     getPrompt(): string {
         return this._prompt.prompt;

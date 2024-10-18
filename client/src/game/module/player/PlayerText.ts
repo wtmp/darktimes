@@ -1,10 +1,6 @@
 import Phaser from "phaser";
-import {PlayerTextView} from "./PlayerTextView";
-import {PlayerTextPresenter} from "./PlayerTextPresenter";
-import {EventBus} from "../../EventBus";
 
-export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextView {
-    private _presenter: PlayerTextPresenter;
+export class PlayerText extends Phaser.GameObjects.Text {
 
     constructor(scene: Phaser.Scene) {
         super(scene, scene.game.canvas.width / 2,
@@ -19,7 +15,6 @@ export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextVie
         this.setColor("#00FF00");
         this.setFontStyle("bold");
 
-        this._presenter = new PlayerTextPresenter(this);
 
         // EventBus.on(PromptEvents.PromptSay, (text: string) => {
         //     this._presenter.onPlayerSay(text);

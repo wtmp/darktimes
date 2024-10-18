@@ -16,7 +16,7 @@ export class ConsolePresenter implements ConsoleContract.ConsolePresenter {
             if(key === "Enter") {
                 this._model.setText("");
             } else if(key === "Backspace") {
-                this._model.setText(this._model.getText().substring(0, this._model.getText().length - 1))
+                this._model.setText(this._model.getText().substring(0, this._model.getText().length - 1));
             }
         }
 
