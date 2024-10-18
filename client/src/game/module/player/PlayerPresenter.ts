@@ -9,7 +9,7 @@ export class PlayerPresenter implements PlayerContract.PlayerPresenter {
 
     constructor(view: PlayerContract.PlayerView) {
         this._view = view;
-        this._model = new PlayerModel(new Player(32*100, 32*100));
+        this._model = new PlayerModel(new Player(32 * 100, 32 * 100));
     }
 
     onRightClick(direction: Direction): void {

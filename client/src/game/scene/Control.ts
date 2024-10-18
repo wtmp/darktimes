@@ -1,14 +1,11 @@
 import Phaser from "phaser";
-import { Compass } from "../module/player/Compass";
-import { PlayerContract } from "../module/player/PlayerContract";
+import {Compass} from "../module/player/Compass";
+import {PlayerContract} from "../module/player/PlayerContract";
 import {Direction} from "../module/player/Direction";
 import {PlayerPresenter} from "../module/player/PlayerPresenter";
 
 export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
     private _compass: Compass = new Compass();
-
-    private  _centerX: number = 0;
-    private  _centerY: number = 0;
 
     private _playerPresenter: PlayerContract.PlayerPresenter = new PlayerPresenter(this);
 
@@ -17,9 +14,6 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
     }
 
     preload(): void {
-        this._centerX = this.game.canvas.width / 2;
-        this._centerY = this.game.canvas.height / 2;
-
         let map = this.make.tilemap({
             width: 800,
             height: 600,
@@ -43,14 +37,14 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
 
         layer?.putTileAt(762, 0, 0, false);
 
-        this.add.text(10,10, "Console> ")
+        let promptSprite = this.add.text(10,10, "Console> ")
             .setName("prompt")
             .setFontFamily("Helvetica")
             .setBackgroundColor("#000000")
             .setOrigin(0, 0)
             .setScrollFactor(0);
 
-        this.add.sprite(this._centerX, this._centerY, "objects", 2241)
+        let playerSprite = this.add.sprite(0, 0, "objects", 2241)
             .setName("player")
             .setScale(2)
             .setOrigin(0, 0);
@@ -85,16 +79,13 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
             repeat: 0
         });
 
-        const player =
-            this.children.getByName("player") as Phaser.GameObjects.Sprite;
+        this._playerPresenter.onRightClick(Direction.CENTER);
 
-        this.cameras.main.startFollow(player);
+        this.cameras.main.startFollow(playerSprite);
         // this.add.text(100, 100, "Helvetica", {fontFamily: "Helvetica", fontSize: 28});
         // this.add.text(100, 150, "Times New Roman", {fontFamily: "Times New Roman", fontSize: 28});
         // this.add.text(100, 200, "Verdana", {fontFamily: "Verdana", fontSize: 28});
         // this.add.text(100, 250, "Palatino", {fontFamily: "Palatino", fontSize: 28});
-
-        //this.cameras.main.startFollow(player);
     }
 
     create(): void {
@@ -118,8 +109,8 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
     update(): void {
         if(this.input.mousePointer) {
             if(this.input.mousePointer.rightButtonDown()) {
-                let dx = this.input.mousePointer.x - (this._centerX + 16);
-                let dy = this.input.mousePointer.y - (this._centerY + 16);
+                let dx = this.input.mousePointer.x - (this.cameras.main.width / 2 + 16);
+                let dy = this.input.mousePointer.y - (this.cameras.main.height / 2 + 16);
 
                 let direction = this._compass.getCardinalDirection(dx, dy);
 
