@@ -1,7 +1,7 @@
 import {PlayerModel} from "./PlayerModel";
-import {Direction} from "./Direction";
 import { PlayerContract } from "./PlayerContract";
 import { Player } from "./Player";
+import {Direction} from "../../Direction";
 
 export class PlayerPresenter implements PlayerContract.PlayerPresenter {
     private _view: PlayerContract.PlayerView;

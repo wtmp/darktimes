@@ -1,12 +1,11 @@
 import Phaser from "phaser";
-import {Compass} from "../module/player/Compass";
+import { Compass } from "../Compass";
+import { Direction } from "../Direction";
 import {PlayerContract} from "../module/player/PlayerContract";
-import {Direction} from "../module/player/Direction";
 import {PlayerPresenter} from "../module/player/PlayerPresenter";
 
 export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
     private _compass: Compass = new Compass();
-
     private _playerPresenter: PlayerContract.PlayerPresenter = new PlayerPresenter(this);
 
     constructor() {
@@ -82,10 +81,6 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
         this._playerPresenter.onRightClick(Direction.CENTER);
 
         this.cameras.main.startFollow(playerSprite);
-        // this.add.text(100, 100, "Helvetica", {fontFamily: "Helvetica", fontSize: 28});
-        // this.add.text(100, 150, "Times New Roman", {fontFamily: "Times New Roman", fontSize: 28});
-        // this.add.text(100, 200, "Verdana", {fontFamily: "Verdana", fontSize: 28});
-        // this.add.text(100, 250, "Palatino", {fontFamily: "Palatino", fontSize: 28});
     }
 
     create(): void {
