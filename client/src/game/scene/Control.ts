@@ -1,16 +1,33 @@
 import Phaser from "phaser";
-import { Compass } from "../Compass";
-import { Direction } from "../Direction";
+import {Compass} from "../Compass";
+import {Direction} from "../Direction";
 import {PlayerContract} from "../module/player/PlayerContract";
+import {ConsoleContract} from "../module/console/ConsoleContract";
 import {PlayerPresenter} from "../module/player/PlayerPresenter";
-import GameObject = Phaser.GameObjects.GameObject;
+import {ConsolePresenter} from "../module/console/ConsolePresenter";
 
-export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
+export class Control extends Phaser.Scene implements PlayerContract.PlayerView,
+    ConsoleContract.ConsoleView {
+
     private _compass: Compass = new Compass();
+
     private _playerPresenter: PlayerContract.PlayerPresenter = new PlayerPresenter(this);
+    private _consolePresenter: ConsoleContract.ConsolePresenter = new ConsolePresenter(this);
 
     constructor() {
         super("Control");
+    }
+
+    displayPrompt(text: string): void {
+        const con =
+            this.children.getByName("console") as Phaser.GameObjects.Text;
+        con.setText(text);
+    }
+
+    displayPromptText(text: string): void {
+        const con =
+            this.children.getByName("console") as Phaser.GameObjects.Text;
+        con.setText(con.text + text);
     }
 
     preload(): void {
@@ -38,7 +55,7 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
         layer?.putTileAt(762, 0, 0, false);
 
         let promptSprite = this.add.text(10,10, "Console> ")
-            .setName("prompt")
+            .setName("console")
             .setFontFamily("Helvetica")
             .setBackgroundColor("#000000")
             .setOrigin(0, 0)
@@ -86,6 +103,7 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
         });
 
         this._playerPresenter.onMovement(Direction.CENTER);
+        this._consolePresenter.onKeyPressed("");
 
         this.cameras.main.startFollow(playerSprite);
     }
@@ -102,6 +120,7 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
         if(this.input.keyboard) {
             this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: KeyboardEvent) => {
                 console.log(event);
+                this._consolePresenter.onKeyPressed(event.key);
             });
         } else {
             throw new Error("Failed to initialize keyboard events.");
@@ -182,4 +201,5 @@ export class Control extends Phaser.Scene implements PlayerContract.PlayerView {
             this.children.getByName("playerName") as Phaser.GameObjects.Text;
         playerName.setText(name);
     }
+
 }

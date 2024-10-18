@@ -1,12 +1,8 @@
 import {Scene} from "phaser";
-import {PromptText} from "./prompt/PromptText";
 import {PlayerSprite} from "./player/PlayerSprite";
-import {PlayerText} from "./player/PlayerText";
 import {Movement} from "./player/movement/Movement";
 import {PlayerUtils} from "./player/PlayerUtils";
 import {MovementAnimation} from "./player/movement/MovementAnimation";
-import Tile = Phaser.Tilemaps.Tile;
-import TilemapLayer = Phaser.Tilemaps.TilemapLayer;
 
 export class MapScene extends Scene {
     private _player!: PlayerSprite;

@@ -2,7 +2,6 @@ import Phaser from "phaser";
 import {PlayerTextView} from "./PlayerTextView";
 import {PlayerTextPresenter} from "./PlayerTextPresenter";
 import {EventBus} from "../../EventBus";
-import {PromptEvents} from "../prompt/PromptEvents";
 
 export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextView {
     private _presenter: PlayerTextPresenter;
@@ -22,9 +21,9 @@ export class PlayerText extends Phaser.GameObjects.Text implements PlayerTextVie
 
         this._presenter = new PlayerTextPresenter(this);
 
-        EventBus.on(PromptEvents.PromptSay, (text: string) => {
-            this._presenter.onPlayerSay(text);
-        });
+        // EventBus.on(PromptEvents.PromptSay, (text: string) => {
+        //     this._presenter.onPlayerSay(text);
+        // });
     }
 
     displayText(array: string[]): void {
